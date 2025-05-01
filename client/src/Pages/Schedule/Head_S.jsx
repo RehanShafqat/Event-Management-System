@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import {
   Form,
@@ -12,16 +12,8 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
-
-const AVP = () => {
-    const [name, setName] = useState("");
-    const [purpose, setPurpose] = useState("");
-    const [date,setDate]=useState("");
-    const [selection,setSelection]=useState("");
-    const nameref=useRef(null);
-    const purposeref=useRef(null);
-    const dateref=useRef(null);
-  const [Heads] = useState([
+const Head_S = () => {
+  const [Deputies] = useState([
     "Rehan",
     "Ali",
     "Sara",
@@ -40,19 +32,26 @@ const AVP = () => {
   })
 
   const onSubmit = (data) => {
-    console.log(data)
+    if (!data.meetingName || !data.purpose || !data.date) {
+      alert("❌ Please fill in all fields.")
+      return
+    }
+
+    console.log("Submitted data:", data)
+    alert(`✅ Meeting "${data.meetingName}" submitted successfully!`)
+    form.reset()
   }
 
   return (
     <div className="min-h-screen w-full overflow-x-hidden bg-white flex justify-center py-10 px-4">
       <div className="w-full max-w-2xl space-y-8">
         <h2 className="text-3xl font-semibold bg-black text-white p-4 rounded-md text-center">
-          Your Heads are:
+          Your Deputy Heads
         </h2>
 
         <ul className="list-decimal pl-6 space-y-1 text-lg text-gray-700">
-          {Heads.map((head, index) => (
-            <li key={index}>{head}</li>
+          {Deputies.map((deputy, index) => (
+            <li key={index}>{deputy}</li>
           ))}
         </ul>
 
@@ -70,7 +69,7 @@ const AVP = () => {
                 <FormItem>
                   <FormLabel>Meeting Name</FormLabel>
                   <FormControl>
-                    <Input ref={nameref} placeholder="Enter meeting name" {...field} />
+                    <Input placeholder="Enter meeting name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -84,7 +83,7 @@ const AVP = () => {
                 <FormItem>
                   <FormLabel>Meeting Purpose</FormLabel>
                   <FormControl>
-                    <Input ref={purposeref} placeholder="Enter purpose" {...field} />
+                    <Input placeholder="Enter purpose" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -100,15 +99,15 @@ const AVP = () => {
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
-                      defaultValue={field.value}
+                      value={field.value}
                       className="space-y-2"
                     >
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem onChange={(e)=>{if(e.target.checked){setSelection(e.target.value)}}} value="all" id="all" />
+                        <RadioGroupItem value="all" id="all" />
                         <label htmlFor="all">Send to All</label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem onChange={(e)=>{if(e.target.checked){setSelection(e.target.value)}}} value="relevant" id="relevant" />
+                        <RadioGroupItem value="relevant" id="relevant" />
                         <label htmlFor="relevant">Send to Relevant Members</label>
                       </div>
                     </RadioGroup>
@@ -125,21 +124,16 @@ const AVP = () => {
                 <FormItem>
                   <FormLabel>Meeting Date</FormLabel>
                   <FormControl>
-                    <Input ref={dateref} type="date" {...field} />
+                    <Input type="date" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <Button type="submit" className="w-full" onClick={()=>{
-                setName(nameref.target.value);
-                setPurpose(purposeref.target.value);
-                setDate(dateref.target.value);
-                console.log(name,purpose,date,selection);
-            }}>
+            <Button type="submit" className="w-full">
               Submit
-            </Button >
+            </Button>
           </form>
         </Form>
       </div>
@@ -147,4 +141,4 @@ const AVP = () => {
   )
 }
 
-export default AVP
+export default Head_S

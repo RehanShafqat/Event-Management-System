@@ -4,9 +4,13 @@ import viteLogo from "/vite.svg";
 // import "./App.css";
 import SignUp from "./Pages/SignUp";
 import Navbar from "./components/Navbar";
-import DeputyHead from "./Pages/Schedule/DeputyHead";
-import Head from "./Pages/Schedule/Head";
-import AVP from "./Pages/Schedule/AVPs";
+import DeputyHead from "./Pages/Schedule/DeputyHead_S";
+import Head from "./Pages/Schedule/Head_S";
+import AVP from "./Pages/Schedule/AVP_S";
+import DeputyHeads from "./Pages/Tasks_Assignment/DeputyHead_A";
+import AVP_S from "./Pages/Schedule/AVP_S";
+import Head_S from "./Pages/Schedule/Head_S";
+import DeputyHead_S from "./Pages/Schedule/DeputyHead_S";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -14,7 +18,7 @@ function App() {
   return (
     <>
     <Navbar/>
-    <AVP/>
+    <Head_S/>
     </>
   );
 }
