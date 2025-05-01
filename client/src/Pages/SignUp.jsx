@@ -42,16 +42,6 @@ const SignUp = () => {
   return (
     <div >
       
-      <nav className="w-full h-16 bg-black flex items-center px-6">
-        <div className="flex items-center gap-4">
-          <img
-            src={softec}
-            alt="Logo"
-            className="h-10"/>
-        </div>
-      </nav>
-
-      
       <div className="max-w-lg mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
         <h2 className="text-2xl font-bold text-center text-purple-700">Welcome</h2>
         <p className="text-center text-gray-500 mb-6">Sign Up to continue</p>
