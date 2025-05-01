@@ -13,14 +13,14 @@ import Head_S from "./Pages/Schedule/Head_S";
 import DeputyHead_S from "./Pages/Schedule/DeputyHead_S";
 import Head_A from "./Pages/Tasks_Assignment/Head_A";
 import AVP_A from "./Pages/Tasks_Assignment/AVP_A";
+import DeputyHead_T from "./Pages/Tasks/DeputyHead_T";
 
 function App() {
   const [count, setCount] = useState(0);
-
   return (
     <>
     <Navbar/>
-    <AVP_A/>
+    <DeputyHead_T/>
     </>
   );
 }
