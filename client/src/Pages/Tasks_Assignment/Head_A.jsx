@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button"
 import { Select, SelectTrigger, SelectContent, SelectItem } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 
-const DeputyHead_A = () => {
-  const [officers, setOfficers] = useState([
+const Head_A = () => {
+  const [deputies, setDeputies] = useState([
     "Rehan",
     "Ali",
     "Sara",
@@ -14,16 +14,16 @@ const DeputyHead_A = () => {
   ])
   const [task, setTask] = useState("")
   const [name, setName] = useState("")
-  const [selectedOfficer, setSelectedOfficer] = useState("")
+  const [selectedDeputy, setSelectedDeputy] = useState("")
   const taskAssigned = useRef("")
 
   const handleSubmit = () => {
-    if (selectedOfficer && taskAssigned.current.value) {
+    if (selectedDeputy && taskAssigned.current.value) {
       setTask(taskAssigned.current.value)
-      setName(selectedOfficer)
-      alert("Task successfully assigned to " + selectedOfficer)
+      setName(selectedDeputy)
+      alert("Task successfully assigned to " + selectedDeputy)
 
-      setSelectedOfficer("")
+      setSelectedDeputy("")
       taskAssigned.current.value = ""
     } else {
       alert("Please fill in all fields.")
@@ -34,23 +34,23 @@ const DeputyHead_A = () => {
     <div className="min-h-screen flex justify-center items-center bg-gray-100 p-6">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md space-y-6">
         <h2 className="text-2xl font-semibold text-center text-gray-800">
-          Assign Task to Officer
+          Assign Task to Deputy
         </h2>
 
         <div className="space-y-2">
-          <label htmlFor="officer" className="text-gray-700 font-medium">
-            Select Officer
+          <label htmlFor="deputy" className="text-gray-700 font-medium">
+            Select Deputy
           </label>
-          <Select value={selectedOfficer} onValueChange={setSelectedOfficer}>
+          <Select value={selectedDeputy} onValueChange={setSelectedDeputy}>
             <SelectTrigger className="w-full">
               <span className="text-sm">
-                {selectedOfficer || "Choose an officer"}
+                {selectedDeputy || "Choose an Deputy"}
               </span>
             </SelectTrigger>
             <SelectContent>
-              {officers.map((officer, index) => (
-                <SelectItem key={index} value={officer}>
-                  {officer}
+              {deputies.map((deputy, index) => (
+                <SelectItem key={index} value={deputy}>
+                  {deputy}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -79,4 +79,4 @@ const DeputyHead_A = () => {
   )
 }
 
-export default DeputyHead_A
+export default Head_A
