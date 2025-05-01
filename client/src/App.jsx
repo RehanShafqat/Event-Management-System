@@ -6,6 +6,7 @@ import SignUp from "./Pages/SignUp";
 import Navbar from "./components/Navbar";
 import DeputyHead from "./Pages/Schedule/DeputyHead";
 import Head from "./Pages/Schedule/Head";
+import AVP from "./Pages/Schedule/AVPs";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -13,7 +14,7 @@ function App() {
   return (
     <>
     <Navbar/>
-    <Head/>
+    <AVP/>
     </>
   );
 }
