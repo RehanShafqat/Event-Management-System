@@ -15,7 +15,7 @@ import {
       <img src={softec} className="xl:w-[10vw] l:w-[15vw] md:w-[20vw] sm:w-[20vw] w-[40vw]" alt="" />
   
         <NavigationMenu className="hidden md:flex md:justify-center md:items-center w-screen ">
-          <NavigationMenuList className="flex md:justify-between md:items-center xl:w-[88vw] l:w-[83vw] md:w-[78vw] pl-[5px] pr-[5px]">
+          <NavigationMenuList className="flex md:justify-between md:items-center xl:w-[85vw] l:w-[80vw] md:w-[75vw] pl-[5px] pr-[5px]">
             {navCom.map((item, index) => (
               <NavigationMenuItem key={index}>
                 <NavigationMenuLink href={`/${item.toLowerCase()}`}>{item}</NavigationMenuLink>
