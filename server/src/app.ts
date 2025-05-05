@@ -1,12 +1,9 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import connectDB from "./config/database";
+import { connectDB } from "./config/database";
 import { errorHandler } from "./middleware/error.middleware";
 import redisClient from "./config/redis";
-// Import routes
-import userRoutes from "./routes/users.routes";
-import eventRoutes from "./routes/event.routes";
 
 dotenv.config();
 
@@ -20,9 +17,19 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get("/", async (req: Request, res: Response) => {
+  // await redisClient.set("test", "Hello World");
+  res.status(200).json({
+    success: true,
+    message: "Hello World",
+  });
+});
+
+app.listen(process.env.PORT, () => {
+  // console.log(`Server is running on port localhost:${process.env.PORT}`);
+});
+
 // Routes
-app.use("/api/users", userRoutes);
-app.use("/api/events", eventRoutes);
 
 // Error handling
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

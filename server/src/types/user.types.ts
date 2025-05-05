@@ -1,19 +1,20 @@
-export interface IUser {
-  _id?: string;
+import { Document } from "mongoose";
+
+export type Role = "President" | "VP" | "AVP" | "Head" | "Deputy" | "Officer";
+
+export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
-  role: "user" | "admin" | "organizer";
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-export interface IUserLogin {
-  email: string;
-  password: string;
-}
-
-export interface IUserRegister
-  extends Omit<IUser, "_id" | "createdAt" | "updatedAt"> {
-  confirmPassword: string;
+  role: Role;
+  mfaSecret?: string;
+  mfaEnabled: boolean;
+  supervisor?: string;
+  subordinates: string[];
+  competitions?: string[];
+  createdAt: Date;
+  updatedAt: Date;
+  comparePassword(enteredPassword: string): Promise<boolean>;
+  generateAuthToken(): string;
+  generateMfaSecret(): string;
 }
