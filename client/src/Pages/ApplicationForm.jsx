@@ -299,11 +299,10 @@ const ApplicationForm = () => {
                   key={dept}
                   type="button"
                   variant="outline"
-                  className={`border rounded-full px-4 py-1 text-sm ${
-                    selectedDepartments.includes(dept)
+                  className={`border rounded-full px-4 py-1 text-sm ${selectedDepartments.includes(dept)
                       ? "bg-purple-500 text-white border-purple-700"
                       : "bg-white text-black border-purple-700"
-                  }`}
+                    }`}
                   onClick={() => toggleDepartment(dept)}
                 >
                   + {dept}

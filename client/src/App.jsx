@@ -10,6 +10,10 @@ import ProtectedRoute from "./Pages/ProtectedRoute";
 import { Route, Routes } from "react-router-dom";
 import PublicLayout from "./Pages/PublicLayout";
 
+
+
+
+
 function App() {
   return (
     <>
