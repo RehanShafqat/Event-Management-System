@@ -24,6 +24,7 @@ const Login = () => {
       email: formData.get("email"),
       password: formData.get("password"),
     };
+    console.log(credentials);
     dispatch(loginStarted());
   };
 
