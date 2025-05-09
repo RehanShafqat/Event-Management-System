@@ -27,7 +27,7 @@ export const sendEmail = async (options: EmailOptions): Promise<void> => {
 
     await transporter.sendMail(mailOptions);
     logger.info(`Email sent to ${options.to}`);
-  } catch (error) {
+  } catch (error: unknown) {
     logger.error("Email sending failed:", error);
     throw new CustomError("Failed to send email", 500);
   }

@@ -61,7 +61,7 @@ const UserSchema: Schema = new Schema(
   }
 );
 
-//INFO: Encrypt password using bcrypt
+// Encrypt password using bcrypt
 UserSchema.pre<IUser>("save", async function (next) {
   if (!this.isModified("password")) {
     next();
@@ -71,7 +71,7 @@ UserSchema.pre<IUser>("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-//INFO: Sign JWT and return
+// Sign JWT and return
 UserSchema.methods.generateAuthToken = function (): string {
   const secret = process.env.JWT_SECRET;
   if (!secret) {
@@ -85,14 +85,14 @@ UserSchema.methods.generateAuthToken = function (): string {
   return jwt.sign({ id: this._id }, secret, options);
 };
 
-//INFO: Match user entered password to hashed password in database
+// Match user entered password to hashed password in database
 UserSchema.methods.comparePassword = async function (
   enteredPassword: string
 ): Promise<boolean> {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-//INFO: Generate MFA secret
+// Generate MFA secret
 UserSchema.methods.generateMfaSecret = function (): string {
   const secret = otplib.authenticator.generateSecret();
   this.mfaSecret = secret;

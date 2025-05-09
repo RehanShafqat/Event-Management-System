@@ -10,7 +10,6 @@ dotenv.config();
 const app = express();
 
 // Connect to MongoDB
-connectDB();
 
 // Middleware
 app.use(cors());
@@ -25,8 +24,10 @@ app.get("/", async (req: Request, res: Response) => {
   });
 });
 
-app.listen(process.env.PORT, () => {
-  // console.log(`Server is running on port localhost:${process.env.PORT}`);
+connectDB().then(() => {
+  app.listen(process.env.PORT, () => {
+    console.log(`Server is running on port localhost:${process.env.PORT}`);
+  });
 });
 
 // Routes
