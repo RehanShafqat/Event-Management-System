@@ -213,15 +213,14 @@ function Competitions() {
                 <img
                   src={competition.image}
                   alt={competition.name}
-                  className={`object-contain mx-auto ${
-                    [
+                  className={`object-contain mx-auto ${[
                       "AI Innovation",
                       "Cinematography",
                       "LFR Competition",
                     ].includes(competition.name)
                       ? "w-45 h-45"
                       : "w-32 h-45"
-                  }`}
+                    }`}
                 />
               </CardHeader>
               <CardContent>

@@ -7,6 +7,10 @@ import About from "./Pages/About";
 import Contact from "./Pages/Contact";
 import { Route, Routes } from "react-router-dom";
 
+
+
+
+
 function App() {
   return (
     <>
