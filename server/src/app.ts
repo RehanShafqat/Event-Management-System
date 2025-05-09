@@ -4,7 +4,8 @@ import dotenv from "dotenv";
 import { connectDB } from "./config/database";
 import { errorHandler } from "./middleware/error.middleware";
 import redisClient from "./config/redis";
-
+import logger from "./utils/logger";
+import AuthRoutes from "./routes/auth.routes";
 dotenv.config();
 
 const app = express();
@@ -26,12 +27,12 @@ app.get("/", async (req: Request, res: Response) => {
 
 connectDB().then(() => {
   app.listen(process.env.PORT, () => {
-    console.log(`Server is running on port localhost:${process.env.PORT}`);
+    logger.info(`Server is running on port localhost:${process.env.PORT}`);
   });
 });
 
 // Routes
-
+app.use("/api/auth", AuthRoutes);
 // Error handling
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   errorHandler(err, req, res, next);
