@@ -190,7 +190,7 @@ const Login = () => {
           {error && (
             <Alert
               variant="destructive"
-              className="mb-4 bg-[#2a1a2a] border-[#7f3fbf]"
+              className="mb-4 bg-[#2a1a2a] border-my-purple"
             >
               <AlertDescription className="text-[#ff6b6b]">
                 {error}
@@ -204,7 +204,7 @@ const Login = () => {
               </Label>
               <Input
                 id="email"
-                className="bg-[#2a2a2a] border-gray-600 text-white placeholder-gray-400 focus-visible:ring-[#7f3fbf]"
+                className="bg-[#2a2a2a] border-gray-600 text-white placeholder-gray-400 focus-visible:ring-my-purple"
                 name="email"
                 type="email"
                 required
@@ -217,7 +217,7 @@ const Login = () => {
               </Label>
               <Input
                 id="password"
-                className="bg-[#2a2a2a] border-gray-600 text-white placeholder-gray-400 focus-visible:ring-[#7f3fbf]"
+                className="bg-[#2a2a2a] border-gray-600 text-white placeholder-gray-400 focus-visible:ring-my-purple"
                 name="password"
                 type="password"
                 required
@@ -256,14 +256,14 @@ const Login = () => {
           <div className="flex flex-col gap-2">
             <Button
               variant="outline"
-              className="w-full bg-[#2a2a2a] border-[#7f3fbf] text-white hover:bg-[#7f3fbf] hover:text-white transition-colors"
+              className="w-full bg-[#2a2a2a] border-my-purple text-white hover:bg-my-purple hover:text-white transition-colors"
               disabled={loading}
             >
               <Github className="mr-2 h-4 w-4 text-gray-300" /> GitHub
             </Button>
             <Button
               variant="outline"
-              className="w-full bg-[#2a2a2a] border-[#7f3fbf] text-white hover:bg-[#7f3fbf] hover:text-white transition-colors"
+              className="w-full bg-[#2a2a2a] border-my-purple text-white hover:bg-my-purple hover:text-white transition-colors"
               disabled={loading}
             >
               <Aperture className="mr-2 h-4 w-4 text-gray-300" /> Google
@@ -272,7 +272,7 @@ const Login = () => {
         </CardContent>
         <CardFooter className="text-gray-400 text-sm text-center justify-center">
           Don't have an account?{" "}
-          <a href="#" className="ml-1 text-[#7f3fbf] hover:text-[#9d5bdf]">
+          <a href="#" className="ml-1 text-my-purple hover:text-[#9d5bdf]">
             Sign up
           </a>
         </CardFooter>

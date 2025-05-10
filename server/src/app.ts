@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { connectDB } from "./config/database";
 import { errorHandler } from "./middleware/error.middleware";
-import redisClient from "./config/redis";
+// import redisClient from "./config/redis";
 import logger from "./utils/logger";
 import AuthRoutes from "./routes/auth.routes";
 import helmet from "helmet";

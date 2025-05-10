@@ -32,7 +32,7 @@ const Contact = () => {
                   <Input
                     id="name"
                     type="text"
-                    className="bg-[#2a2a2a] border-gray-600 text-white placeholder-gray-400 focus-visible:ring-[#7f3fbf]"
+                    className="bg-[#2a2a2a] border-gray-600 text-white placeholder-gray-400 focus-visible:ring-my-purple"
                   />
                 </div>
                 <div className="space-y-2">
@@ -42,7 +42,7 @@ const Contact = () => {
                   <Input
                     id="email"
                     type="email"
-                    className="bg-[#2a2a2a] border-gray-600 text-white placeholder-gray-400 focus-visible:ring-[#7f3fbf]"
+                    className="bg-[#2a2a2a] border-gray-600 text-white placeholder-gray-400 focus-visible:ring-my-purple"
                   />
                 </div>
                 <div className="space-y-2">
@@ -52,12 +52,12 @@ const Contact = () => {
                   <textarea
                     id="message"
                     rows={5}
-                    className="flex w-full rounded-md bg-[#2a2a2a] border border-gray-600 px-3 py-2 text-sm text-white placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7f3fbf] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0e0e0e]"
+                    className="flex w-full rounded-md bg-[#2a2a2a] border border-gray-600 px-3 py-2 text-sm text-white placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-my-purple focus-visible:ring-offset-2 focus-visible:ring-offset-[#0e0e0e]"
                   />
                 </div>
                 <Button
                   type="submit"
-                  className="bg-[#7f3fbf] hover:bg-[#9d5bdf] text-white px-8 py-6 text-lg w-full"
+                  className="bg-my-purple hover:bg-[#9d5bdf] text-white px-8 py-6 text-lg w-full"
                 >
                   Send Message
                 </Button>
@@ -70,7 +70,7 @@ const Contact = () => {
               </h2>
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <Mail className="h-6 w-6 text-[#7f3fbf] mt-1 mr-4" />
+                  <Mail className="h-6 w-6 text-my-purple mt-1 mr-4" />
                   <div>
                     <h3 className="text-lg font-semibold text-white mb-1">
                       Email
@@ -80,7 +80,7 @@ const Contact = () => {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <Phone className="h-6 w-6 text-[#7f3fbf] mt-1 mr-4" />
+                  <Phone className="h-6 w-6 text-my-purple mt-1 mr-4" />
                   <div>
                     <h3 className="text-lg font-semibold text-white mb-1">
                       Phone
@@ -90,7 +90,7 @@ const Contact = () => {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <Home className="h-6 w-6 text-[#7f3fbf] mt-1 mr-4" />
+                  <Home className="h-6 w-6 text-my-purple mt-1 mr-4" />
                   <div>
                     <h3 className="text-lg font-semibold text-white mb-1">
                       Office
@@ -109,13 +109,13 @@ const Contact = () => {
                 <div className="flex space-x-4">
                   <Button
                     variant="outline"
-                    className="bg-[#2a2a2a] border-[#7f3fbf] text-white hover:bg-[#7f3fbf]"
+                    className="bg-[#2a2a2a] border-my-purple text-white hover:bg-my-purple"
                   >
                     <Github className="h-5 w-5 mr-2" /> GitHub
                   </Button>
                   <Button
                     variant="outline"
-                    className="bg-[#2a2a2a] border-[#7f3fbf] text-white hover:bg-[#7f3fbf]"
+                    className="bg-[#2a2a2a] border-my-purple text-white hover:bg-my-purple"
                   >
                     <Aperture className="h-5 w-5 mr-2" /> Twitter
                   </Button>

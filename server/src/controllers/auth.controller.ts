@@ -68,7 +68,7 @@ export const login = async (
 
         // Generate token and set cookie
         const token = user.generateAuthToken();
-        // setTokenCookie(res, token);
+        setTokenCookie(res, token);
 
         res.status(200).json({
           success: true,
@@ -80,7 +80,6 @@ export const login = async (
           },
           setupMfa: true,
           qrCode,
-          secret,
         });
       } else {
         // Generate token and set cookie

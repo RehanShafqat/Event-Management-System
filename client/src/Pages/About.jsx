@@ -12,7 +12,7 @@ const AboutPage = () => {
             <p className="text-xl text-gray-300 mb-8">
               Empowering businesses with innovative solutions since 2015
             </p>
-            <Button className="bg-[#7f3fbf] hover:bg-[#9d5bdf] text-white px-8 py-6 text-lg">
+            <Button className="bg-my-purple hover:bg-[#9d5bdf] text-white px-8 py-6 text-lg">
               Learn More
             </Button>
           </div>
@@ -86,7 +86,7 @@ const AboutPage = () => {
                     <h3 className="text-xl font-semibold text-white">
                       {member.name}
                     </h3>
-                    <p className="text-[#7f3fbf] mb-2">{member.role}</p>
+                    <p className="text-my-purple mb-2">{member.role}</p>
                     <p className="text-gray-400">{member.bio}</p>
                   </div>
                 </div>

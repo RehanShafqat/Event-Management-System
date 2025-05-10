@@ -145,7 +145,7 @@ export function PresidentDashboard() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input
                 placeholder="Search..."
-                className="pl-10 bg-gray-800 border-gray-700 text-white focus:border-[#7f3fbf]"
+                className="pl-10 bg-gray-800 border-gray-700 text-white focus:border-my-purple"
               />
             </div>
             <Button
@@ -156,7 +156,7 @@ export function PresidentDashboard() {
               <Bell className="h-5 w-5" />
             </Button>
             <Avatar>
-              <AvatarFallback className="bg-[#7f3fbf] text-white">
+              <AvatarFallback className="bg-my-purple text-white">
                 P
               </AvatarFallback>
             </Avatar>
@@ -175,7 +175,7 @@ export function PresidentDashboard() {
             title="Pending Applications"
             value={24}
             change={5}
-            icon={<Users className="h-5 w-5 text-[#7f3fbf]" />}
+            icon={<Users className="h-5 w-5 text-my-purple" />}
           />
           {/* More stat cards */}
         </div>
@@ -264,9 +264,8 @@ function StatCard({ title, value, change, icon }) {
       <CardContent>
         <div className="text-2xl font-bold text-white">{value}</div>
         <p
-          className={`text-xs ${
-            isPositive ? "text-green-400" : "text-red-400"
-          }`}
+          className={`text-xs ${isPositive ? "text-green-400" : "text-red-400"
+            }`}
         >
           {isPositive ? "+" : ""}
           {change} from last week

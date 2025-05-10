@@ -39,6 +39,8 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-my-purple: var(--my-purple);
+  --color-my-border: var(--my-border);
 }
 
 :root {
@@ -74,6 +76,8 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+  --my-purple: oklch(0.5 0.19 299.6);
+  --my-border: oklch(55.1% 0.027 264.364);
 }
 
 .dark {

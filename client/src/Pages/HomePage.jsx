@@ -19,13 +19,13 @@ import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const carouselImages = [
-    "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?q=80&w=1469&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1470&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1470&auto=format&fit=crop",
+    "https://www.techjuice.pk/wp-content/uploads/2020/03/SOFTEC-Cover-Ad.jpg",
+    "https://www.techjuice.pk/wp-content/uploads/2020/03/SOFTEC-Cover-Ad.jpg",
+    "https://www.techjuice.pk/wp-content/uploads/2020/03/SOFTEC-Cover-Ad.jpg",
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0e0e0e]">
+    <div className="min-h-screen flex flex-col ">
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Carousel */}
@@ -38,9 +38,9 @@ const HomePage = () => {
                     <img
                       src={image}
                       alt={`Slide ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-center"
                     />
-                    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <div className="absolute inset-0  bg-opacity-50 flex items-center justify-center">
                       <div className="text-center px-4">
                         <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
                           Welcome to Softec Management
@@ -49,7 +49,7 @@ const HomePage = () => {
                           Streamline your workflow with our powerful management
                           system
                         </p>
-                        <Button className="bg-[#7f3fbf] hover:bg-[#9d5bdf] text-white px-8 py-6 text-lg">
+                        <Button className="bg-my-purple hover:bg-[#9d5bdf] text-white px-8 py-6 text-lg">
                           Get Started
                         </Button>
                       </div>
@@ -58,14 +58,14 @@ const HomePage = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 bg-[#2a2a2a] border-[#7f3fbf] text-white hover:bg-[#7f3fbf]" />
-            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 bg-[#2a2a2a] border-[#7f3fbf] text-white hover:bg-[#7f3fbf]" />
+            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 bg-[#2a2a2a] border-my-purple text-white hover:bg-my-purple" />
+            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 bg-[#2a2a2a] border-my-purple text-white hover:bg-my-purple" />
           </Carousel>
         </section>
 
         {/* Features Section */}
         <section className="py-16 px-4 max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-white text-center mb-12">
+          <h2 className="text-3xl font-bold  text-center mb-12">
             Our Features
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -74,39 +74,39 @@ const HomePage = () => {
                 title: "Powerful Dashboard",
                 description:
                   "Get insights and analytics at a glance with our intuitive dashboard.",
-                icon: <Aperture className="h-8 w-8 text-[#7f3fbf]" />,
+                icon: <Aperture className="h-8 w-8 text-my-purple" />,
               },
               {
                 title: "Secure Access",
                 description:
                   "Enterprise-grade security to protect your data and privacy.",
-                icon: <Aperture className="h-8 w-8 text-[#7f3fbf]" />,
+                icon: <Aperture className="h-8 w-8 text-my-purple" />,
               },
               {
                 title: "Collaboration Tools",
                 description:
                   "Work seamlessly with your team using our collaboration features.",
-                icon: <Aperture className="h-8 w-8 text-[#7f3fbf]" />,
+                icon: <Aperture className="h-8 w-8 text-my-purple" />,
               },
             ].map((feature, index) => (
-              <Card key={index} className="bg-[#1a1a1a] border-[#2a2a2a]">
+              <Card key={index} className="border-my-border shadow-xl hover:shadow-2xl transition-all duration-300">
                 <CardHeader className="items-center">
-                  <div className="p-4 rounded-full bg-[#2a2a2a] mb-4">
+                  <div className="p-4 rounded-full border-2 border-my-purple mb-4">
                     {feature.icon}
                   </div>
-                  <h3 className="text-xl font-semibold text-white">
+                  <h3 className="text-xl font-semibold ">
                     {feature.title}
                   </h3>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-400 text-center">
+                  <p className=" text-center">
                     {feature.description}
                   </p>
                 </CardContent>
                 <CardFooter className="justify-center">
                   <Button
                     variant="outline"
-                    className="border-[#7f3fbf] text-[#7f3fbf] hover:bg-[#7f3fbf] hover:text-white"
+                    className="border-my-purple text-my-purple dark:text-white dark:hover:bg-my-purple hover:bg-my-purple  hover:text-white"
                   >
                     Learn more
                   </Button>
@@ -117,19 +117,19 @@ const HomePage = () => {
         </section>
 
         {/* Newsletter Section */}
-        <section className="py-16 px-4 bg-[#1a1a1a]">
+        <section className="py-16 px-4 border-t border-my-border">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">
+            <h2 className="text-3xl font-bold  mb-4">
               Subscribe to our Newsletter
             </h2>
-            <p className="text-gray-400 mb-8">
+            <p className=" mb-8">
               Stay updated with our latest features and news.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto sm:max-w-xl">
               <Input
                 type="email"
                 placeholder="Your email address"
-                className="bg-[#2a2a2a] border-gray-600 text-white placeholder-gray-400 focus-visible:ring-[#7f3fbf] flex-1"
+                className="border-my-border focus-visible:ring-my-purple flex-1"
               />
               <Button className="bg-[#e50914] hover:bg-[#f12a34] text-white">
                 Subscribe
@@ -140,12 +140,12 @@ const HomePage = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-[#1a1a1a] border-t border-[#2a2a2a] py-8 px-4">
+      <footer className="  border-my-border py-8 px-4">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <Aperture className="h-8 w-8 text-[#7f3fbf]" />
-              <span className="text-xl font-bold text-white">Softec</span>
+              <Aperture className="h-8 w-8 text-my-purple" />
+              <span className="text-xl font-bold ">Softec</span>
             </div>
             <p className="text-gray-400">
               Powerful management system for modern businesses.
@@ -154,14 +154,14 @@ const HomePage = () => {
               <Button
                 variant="outline"
                 size="icon"
-                className="bg-[#2a2a2a] border-[#7f3fbf] text-white hover:bg-[#7f3fbf]"
+                className=" border-my-purple  hover:bg-my-purple"
               >
                 <Github className="h-4 w-4" />
               </Button>
               <Button
                 variant="outline"
                 size="icon"
-                className="bg-[#2a2a2a] border-[#7f3fbf] text-white hover:bg-[#7f3fbf]"
+                className=" border-my-purple  hover:bg-my-purple"
               >
                 <Aperture className="h-4 w-4" />
               </Button>
@@ -169,10 +169,10 @@ const HomePage = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Company</h3>
+            <h3 className="text-lg font-semibold mb-4">Company</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-400 hover:text-white">
+                <a href="#" className="text-gray-400 ">
                   About Us
                 </a>
               </li>
