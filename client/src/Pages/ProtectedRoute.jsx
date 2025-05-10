@@ -3,15 +3,15 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children, requiredRole }) => {
-  const { isAuthenticated, role } = useSelector(
+  const { user } = useSelector(
     (state) => state.authentication
   );
 
-  if (!isAuthenticated) {
+  if (!user.role) {
     return <Navigate to="/login" replace />;
   }
 
-  if (requiredRole && role !== requiredRole) {
+  if (requiredRole && !requiredRole.includes(user.role)) {
     return <Navigate to="/unauthorized" replace />; //I have to create a page for unauthorized access
   }
 

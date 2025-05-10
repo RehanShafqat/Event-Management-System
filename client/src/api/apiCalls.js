@@ -26,8 +26,26 @@ const auth = {
   },
 };
 
+const user = {
+  updateProfile: async (userId, profileData) => {
+    return axiosInstance.put(`/users/${userId}`, profileData);
+  },
+
+  getProfile: async (userId) => {
+    return axiosInstance.get(`/users/${userId}`);
+  },
+
+  updatePassword: async (currentPassword, newPassword) => {
+    return axiosInstance.put("/users/update-password", {
+      currentPassword,
+      newPassword,
+    });
+  },
+};
+
 const api = {
   auth,
+  user,
 };
 
 export default api;

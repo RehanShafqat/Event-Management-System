@@ -10,6 +10,8 @@ import ProtectedRoute from "./Pages/ProtectedRoute";
 import { Route, Routes } from "react-router-dom";
 import PublicLayout from "./Pages/PublicLayout";
 import MFASetup from "./Pages/MFASetup";
+import ProfilePage from "./Pages/Profile";
+import { ROLES } from "./utils/roles";
 
 function App() {
   return (
@@ -22,13 +24,14 @@ function App() {
           <Route path="/competitions" element={<Competitions />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Route>
         <Route
           path="/dashboard"
           element={
-            // <ProtectedRoute>
-            <Dashboard />
-            // </ProtectedRoute>
+            <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP]}>
+              <Dashboard />
+            </ProtectedRoute>
           }
         />
         {/* <Route path="/competitions/register" element={<ApplicationForm />} /> */}

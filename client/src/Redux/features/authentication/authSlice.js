@@ -1,6 +1,6 @@
 // authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../../../api/auth";
+import api from "../../../api/apiCalls";
 
 export const loginUser = createAsyncThunk(
   "auth/login",
@@ -36,6 +36,8 @@ const initialState = {
     name: null,
     email: null,
     role: null,
+    department: null,
+    imageUrl: null,
   },
   setupMfa: false,
   mfaRequired: false,
@@ -56,6 +58,8 @@ const authSlice = createSlice({
         name: null,
         email: null,
         role: null,
+        department: null,
+        imageUrl: null,
       };
       state.setupMfa = false;
       state.mfaRequired = false;
@@ -66,6 +70,9 @@ const authSlice = createSlice({
     clearError: (state) => {
       state.error = null;
     },
+    updateUser: (state, action) => {
+      state.user = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -75,6 +82,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.success = action.payload.success;
+        console.log("Login Response:", action.payload);
 
         // INFO: This is the case where mfa is enabled and you have to write the code to verify yourself
         if (action.payload.mfaRequired) {
@@ -82,14 +90,19 @@ const authSlice = createSlice({
           state.user.id = action.payload.userId;
         } else {
           if (action.payload.user) {
+            console.log("User data being stored:", action.payload.user);
             state.user = action.payload.user;
             localStorage.setItem("user", JSON.stringify(action.payload.user));
+            console.log(
+              "Stored in localStorage:",
+              JSON.parse(localStorage.getItem("user"))
+            );
+            state.setupMfa = action.payload.setupMfa;
+            state.mfaRequired = action.payload.mfaRequired;
+            state.qrCode = action.payload.qrCode;
+            state.secret = action.payload.secret;
+            state.loading = false;
           }
-          state.setupMfa = action.payload.setupMfa;
-          state.mfaRequired = action.payload.mfaRequired;
-          state.qrCode = action.payload.qrCode;
-          state.secret = action.payload.secret;
-          state.loading = false;
         }
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -102,12 +115,18 @@ const authSlice = createSlice({
       })
       .addCase(verifyMfa.fulfilled, (state, action) => {
         state.success = action.payload.success;
+        console.log("MFA Verify Response:", action.payload);
         if (action.payload.user) {
+          console.log("User data being stored:", action.payload.user);
           state.user = action.payload.user;
           localStorage.setItem("user", JSON.stringify(action.payload.user));
+          console.log(
+            "Stored in localStorage:",
+            JSON.parse(localStorage.getItem("user"))
+          );
+          state.mfaRequired = false;
+          state.loading = false;
         }
-        state.mfaRequired = false;
-        state.loading = false;
       })
       .addCase(verifyMfa.rejected, (state, action) => {
         state.error = action.payload?.message || "MFA verification failed";
@@ -116,5 +135,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, clearError } = authSlice.actions;
+export const { logout, clearError, updateUser } = authSlice.actions;
 export default authSlice.reducer;

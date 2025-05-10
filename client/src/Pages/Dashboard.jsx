@@ -2,6 +2,7 @@
 import { useSelector } from "react-redux";
 import { PresidentDashboard } from "./PresidentDashboard";
 import { useEffect } from "react";
+import { ROLES } from "../utils/roles";
 
 const Dashboard = () => {
   const { user } = useSelector((state) => state.authentication);
@@ -12,9 +13,9 @@ const Dashboard = () => {
 
   const getRoleSpecificContent = () => {
     switch (user.role) {
-      case "President":
+      case ROLES.PRESIDENT:
         return <PresidentDashboard />;
-      case "VP":
+      case ROLES.VP:
         return <VPDashboard />;
       default:
         return <DefaultDashboard />;

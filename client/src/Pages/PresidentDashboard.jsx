@@ -31,7 +31,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../Redux/features/authentication/authSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import api from "../api/auth";
+import api from "../api/apiCalls";
 import { useEffect } from "react";
 
 export function PresidentDashboard() {
