@@ -9,10 +9,7 @@ import Dashboard from "./Pages/Dashboard";
 import ProtectedRoute from "./Pages/ProtectedRoute";
 import { Route, Routes } from "react-router-dom";
 import PublicLayout from "./Pages/PublicLayout";
-
-
-
-
+import MFASetup from "./Pages/MFASetup";
 
 function App() {
   return (
@@ -21,6 +18,7 @@ function App() {
         <Route element={<PublicLayout />}>
           <Route exact path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/setup-mfa" element={<MFASetup />} />
           <Route path="/competitions" element={<Competitions />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
@@ -28,9 +26,9 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <Dashboard />
+            // </ProtectedRoute>
           }
         />
         {/* <Route path="/competitions/register" element={<ApplicationForm />} /> */}

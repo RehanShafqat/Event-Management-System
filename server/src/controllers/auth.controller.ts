@@ -15,6 +15,16 @@ const setTokenCookie = (res: Response, token: string): void => {
   });
 };
 
+// Helper function to clear token cookie
+const clearTokenCookie = (res: Response): void => {
+  res.cookie("token", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    expires: new Date(0), // Expire immediately
+  });
+};
+
 // @desc    Login user
 // @route   POST /api/auth/login
 // @access  Public
@@ -24,6 +34,7 @@ export const login = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    logger.info(req.body);
     const { email, password } = req.body;
 
     // Validate email and password
@@ -278,6 +289,28 @@ export const disableMfa = async (
     res.status(200).json({
       success: true,
       message: "MFA disabled successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Logout user
+// @route   POST /api/auth/logout
+// @access  Private
+export const logout = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    // logger.info()
+    // Clear the token cookie
+    clearTokenCookie(res);
+
+    res.status(200).json({
+      success: true,
+      message: "Logged out successfully",
     });
   } catch (error) {
     next(error);

@@ -7,47 +7,63 @@ export const errorHandler = (
   req: Request,
   res: Response,
   next: NextFunction
-): void => {
-  logger.error(`${err.name}: ${err.message}`, { stack: err.stack });
-
+) => {
+  // If it's our custom error, use its status code and message
   if (err instanceof CustomError) {
-    res.status(err.statusCode).json({
+    logger.error(`[${err.constructor.name}] ${err.message}`);
+    return res.status(err.statusCode).json({
       success: false,
-      error: err.message,
+      message: err.message,
+      error: err.constructor.name,
     });
-  } else {
-    // Mongoose validation error
-    if (err.name === "ValidationError") {
-      res.status(400).json({
-        success: false,
-        error: err.message,
-      });
-    }
-    // Mongoose duplicate key error
-    else if (err.name === "MongoError" && (err as any).code === 11000) {
-      res.status(409).json({
-        success: false,
-        error: "Duplicate field value entered",
-      });
-    }
-    // JWT errors
-    else if (err.name === "JsonWebTokenError") {
-      res.status(401).json({
-        success: false,
-        error: "Invalid token",
-      });
-    } else if (err.name === "TokenExpiredError") {
-      res.status(401).json({
-        success: false,
-        error: "Token expired",
-      });
-    }
-    // Default to 500 server error
-    else {
-      res.status(500).json({
-        success: false,
-        error: "Server Error",
-      });
-    }
   }
+
+  // For mongoose validation errors
+  if (err.name === "ValidationError") {
+    logger.error(`[ValidationError] ${err.message}`);
+    return res.status(400).json({
+      success: false,
+      message: "Validation Error",
+      error: "ValidationError",
+      details: err.message,
+    });
+  }
+
+  // For mongoose duplicate key errors
+  if (err.name === "MongoServerError" && (err as any).code === 11000) {
+    logger.error(`[DuplicateKeyError] ${err.message}`);
+    return res.status(409).json({
+      success: false,
+      message: "Duplicate Entry",
+      error: "DuplicateKeyError",
+      details: err.message,
+    });
+  }
+
+  // For JWT errors
+  if (err.name === "JsonWebTokenError") {
+    logger.error(`[JWTError] ${err.message}`);
+    return res.status(401).json({
+      success: false,
+      message: "Invalid token",
+      error: "JWTError",
+    });
+  }
+
+  if (err.name === "TokenExpiredError") {
+    logger.error(`[TokenExpiredError] ${err.message}`);
+    return res.status(401).json({
+      success: false,
+      message: "Token expired",
+      error: "TokenExpiredError",
+    });
+  }
+
+  // For any other errors
+  logger.error(`[InternalServerError] ${err.message}`);
+  return res.status(500).json({
+    success: false,
+    message: "Internal Server Error",
+    error: "InternalServerError",
+  });
 };

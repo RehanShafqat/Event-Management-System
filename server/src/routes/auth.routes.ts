@@ -5,6 +5,7 @@ import {
   getMe,
   setupMfa,
   disableMfa,
+  logout,
 } from "../controllers/auth.controller";
 import { protect } from "../middleware/auth.middleware";
 
@@ -41,8 +42,6 @@ const AuthRoutes = express.Router();
  *                   properties:
  *                     success:
  *                       type: boolean
- *                     token:
- *                       type: string
  *                     user:
  *                       type: object
  *                       properties:
@@ -54,8 +53,12 @@ const AuthRoutes = express.Router();
  *                           type: string
  *                         role:
  *                           type: string
- *                         mfaEnabled:
- *                           type: boolean
+ *                     setupMfa:
+ *                       type: boolean
+ *                     qrCode:
+ *                       type: string
+ *                     secret:
+ *                       type: string
  *                 - type: object
  *                   properties:
  *                     success:
@@ -219,5 +222,28 @@ AuthRoutes.post("/setup-mfa", protect, setupMfa);
  *                   type: string
  */
 AuthRoutes.post("/disable-mfa", protect, disableMfa);
+
+/**
+ * @swagger
+ * /api/auth/logout:
+ *   post:
+ *     summary: Logout user
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Logout successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ */
+AuthRoutes.post("/logout", protect, logout);
 
 export default AuthRoutes;

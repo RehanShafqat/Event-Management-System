@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { UnauthorizedError, ForbiddenError } from "../utils/CustomError";
 import User from "../models/user.model";
 import { IUser, Role } from "../types/user.types";
+import logger from "../utils/logger";
 
 interface DecodedToken {
   id: string;
@@ -26,10 +27,10 @@ export const protect = async (
   try {
     let token;
 
-    // Get token from cookie
     if (req.cookies.token) {
       token = req.cookies.token;
     }
+    logger.info(token);
 
     if (!token) {
       throw new UnauthorizedError("Not authorized to access this route");

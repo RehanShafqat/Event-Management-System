@@ -12,14 +12,44 @@ import {
   Calendar,
   ListChecks,
   GanttChart,
+  LogOut,
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../Redux/features/authentication/authSlice";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import api from "../api/auth";
+import { useEffect } from "react";
 
 export function PresidentDashboard() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.authentication)
+
+  const handleLogout = async () => {
+    try {
+      await api.auth.logout();
+      dispatch(logout());
+      toast.success("Logged out successfully");
+      navigate("/login");
+    } catch {
+      toast.error("Failed to logout");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#0e0e0e]">
       {/* Sidebar */}
@@ -155,11 +185,45 @@ export function PresidentDashboard() {
             >
               <Bell className="h-5 w-5" />
             </Button>
-            <Avatar>
-              <AvatarFallback className="bg-my-purple text-white">
-                P
-              </AvatarFallback>
-            </Avatar>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="relative h-8 w-8 rounded-full"
+                >
+                  <Avatar className="h-8 w-8">
+                    <AvatarFallback className="bg-my-purple text-white">
+                      {user.name.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56 bg-[#1a1a1a] border-gray-800" align="end" forceMount>
+                <DropdownMenuLabel className="font-normal text-gray-300">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">{user.name}</p>
+                    <p className="text-xs leading-none text-gray-400">
+                      {user.email}
+                    </p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-gray-800" />
+                <DropdownMenuItem
+                  className="text-gray-300 focus:bg-gray-800 focus:text-white cursor-pointer"
+                  onClick={() => navigate("/profile")}
+                >
+                  <UserCircle className="mr-2 h-4 w-4" />
+                  Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="text-gray-300 focus:bg-gray-800 focus:text-white cursor-pointer"
+                  onClick={handleLogout}
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Log out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </header>
 

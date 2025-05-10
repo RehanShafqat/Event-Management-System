@@ -11,6 +11,7 @@ import morgan from "morgan";
 import swaggerJSDoc from "swagger-jsdoc";
 import { swaggerOptions } from "./config/swagger";
 import swaggerUi from "swagger-ui-express";
+import cookieParser from "cookie-parser";
 dotenv.config();
 
 const app = express();
@@ -20,13 +21,13 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: ["http://127.0.0.1:5500", "http://localhost:5500"],
+    origin: ["http://127.0.0.1:5173", "http://localhost:5173"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

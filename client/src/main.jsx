@@ -6,7 +6,9 @@ import { Provider } from "react-redux";
 import store from "./Redux/store.js";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "./components/MyComponents/ThemeProvider.jsx";
+import { Toaster } from "sonner"
 createRoot(document.getElementById("root")).render(
+
   <Provider store={store}>
     <BrowserRouter>
       <ThemeProvider attribute="class"
@@ -14,6 +16,12 @@ createRoot(document.getElementById("root")).render(
         enableSystem
         storageKey="vite-ui-theme">
         <App />
+        <Toaster
+          position="top-right"
+          richColors
+          closeButton
+          expand
+        />
       </ThemeProvider>
     </BrowserRouter>
   </Provider>
