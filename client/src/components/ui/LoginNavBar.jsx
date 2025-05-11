@@ -17,12 +17,20 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 import { ModeToggle } from "@/components/MyComponents/ModeToggle";
+import { useEffect } from "react";
 
 const LoginNavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.authentication);
+  const { user, loading } = useSelector((state) => state.authentication);
 
+
+  useEffect(() => {
+    if (!user && !loading) {
+      navigate("/login");
+
+    }
+  }, [user, loading, navigate])
   const handleLogout = async () => {
     try {
       dispatch(logout());
@@ -67,7 +75,7 @@ const LoginNavBar = () => {
             <Button variant="ghost" className="relative h-8 w-8 rounded-full">
               <Avatar className="h-8 w-8">
                 <AvatarFallback className="bg-[#e50914] text-white">
-                  {user.name.charAt(0)}
+                  {user?.name.charAt(0)}
                 </AvatarFallback>
               </Avatar>
             </Button>

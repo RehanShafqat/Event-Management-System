@@ -448,15 +448,13 @@ function CollapsibleNavGroup({ title, icon, children }) {
         {icon}
         {title}
         <ChevronDown
-          className={`ml-auto h-4 w-4 transition-transform duration-200 ${
-            isOpen ? "rotate-180" : ""
-          }`}
+          className={`ml-auto h-4 w-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+            }`}
         />
       </Button>
       <div
-        className={`ml-4 space-y-1 overflow-hidden transition-all duration-200 ${
-          isOpen ? "max-h-96" : "max-h-0"
-        }`}
+        className={`ml-4 space-y-1 overflow-hidden transition-all duration-200 ${isOpen ? "max-h-96" : "max-h-0"
+          }`}
       >
         {children}
       </div>

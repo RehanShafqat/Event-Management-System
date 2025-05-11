@@ -4,6 +4,7 @@ import competitionReducer from "./features/competitionSlice";
 import recruitmentReducer from "./features/recruitmentSlice";
 import participationReducer from "./features/participationSlice";
 import taskReducer from "./features/taskSlice";
+import meetingReducer from "./features/meetingSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     recruitment: recruitmentReducer,
     participation: participationReducer,
     tasks: taskReducer,
+    meetings: meetingReducer,
   },
 });
 
