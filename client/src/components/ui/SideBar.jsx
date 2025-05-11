@@ -67,35 +67,35 @@ const SideBar = () => {
           title="Meetings"
           icon={<Calendar className="mr-2 h-4 w-4" />}
         >
-          <Button
-            variant="ghost"
-            className="w-full justify-start pl-8 hover:bg-gray-800"
-          >
-            Schedule Meeting
-          </Button>
-        </CollapsibleNavGroup>
-
-        <CollapsibleNavGroup
-          title="Tasks"
-          icon={<ListChecks className="mr-2 h-4 w-4" />}
-        >
-          <Link to="/tasks">
+          <Link to="/meetings">
             <Button
               variant="ghost"
               className="w-full justify-start pl-8 hover:bg-gray-800"
             >
-              Manage Tasks
+              Manage Meetings
             </Button>
           </Link>
         </CollapsibleNavGroup>
 
-        <Button
-          variant="ghost"
-          className="w-full justify-start hover:bg-gray-800"
-        >
-          <UserCircle className="mr-2 h-4 w-4" />
-          Profile
-        </Button>
+        <Link to="/tasks">
+          <Button
+            variant="ghost"
+            className="w-full justify-start hover:bg-gray-700 text-white"
+          >
+            <ListChecks className="mr-2 h-4 w-4" />
+            Tasks
+          </Button>
+        </Link>
+
+        <Link to="/profile">
+          <Button
+            variant="ghost"
+            className="w-full justify-start hover:bg-gray-700 text-white"
+          >
+            <UserCircle className="mr-2 h-4 w-4" />
+            Profile
+          </Button>
+        </Link>
       </nav>
     </div>
   );

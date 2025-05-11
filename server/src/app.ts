@@ -16,7 +16,7 @@ import UserRoutes from "./routes/user.routes";
 import CompetitionRoutes from "./routes/competition.routes";
 import RecruitmentRoutes from "./routes/recruitment.routes";
 import TaskRoutes from "./routes/task.routes";
-
+import MeetingRoutes from "./routes/meeting.routes";
 dotenv.config();
 
 const app = express();
@@ -63,6 +63,8 @@ app.use("/api/users", UserRoutes);
 app.use("/api/competitions", CompetitionRoutes);
 app.use("/api/recruitment", RecruitmentRoutes);
 app.use("/api/tasks", TaskRoutes);
+app.use("/api/meetings", MeetingRoutes);
+
 // Error handling
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   errorHandler(err, req, res, next);

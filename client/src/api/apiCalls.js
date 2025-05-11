@@ -199,6 +199,39 @@ const task = {
   },
 };
 
+const meeting = {
+  // Get all meetings
+  getAll: async (filters = {}) => {
+    const queryParams = new URLSearchParams(filters).toString();
+    return axiosInstance.get(`/meetings?${queryParams}`);
+  },
+
+  // Get single meeting
+  getById: async (id) => {
+    return axiosInstance.get(`/meetings/${id}`);
+  },
+
+  // Create new meeting
+  create: async (meetingData) => {
+    return axiosInstance.post("/meetings", meetingData);
+  },
+
+  // Update meeting
+  update: async (id, meetingData) => {
+    return axiosInstance.put(`/meetings/${id}`, meetingData);
+  },
+
+  // Cancel meeting
+  cancel: async (id, reason) => {
+    return axiosInstance.put(`/meetings/${id}/cancel`, { reason });
+  },
+
+  // Delete meeting
+  delete: async (id) => {
+    return axiosInstance.delete(`/meetings/${id}`);
+  },
+};
+
 const api = {
   auth,
   user,
@@ -206,6 +239,7 @@ const api = {
   participation,
   recruitment,
   task,
+  meeting,
 };
 
 export default api;

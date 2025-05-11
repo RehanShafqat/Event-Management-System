@@ -20,6 +20,7 @@ import LoginLayout from "./components/ui/LoginLayout";
 import Tasks from "./pages/Tasks";
 import RecruitmentForm from "@/Pages/RecruitmentForm";
 import RecruitmentApplications from "./Pages/RecruitmentApplications";
+import Meetings from "./components/Meetings/Meetings";
 
 function App() {
   return (
@@ -106,6 +107,22 @@ function App() {
                 ]}
               >
                 <Tasks />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/meetings"
+            element={
+              <ProtectedRoute
+                requiredRole={[
+                  ROLES.PRESIDENT,
+                  ROLES.VP,
+                  ROLES.AVP,
+                  ROLES.HEAD,
+                  ROLES.DEPUTY,
+                ]}
+              >
+                <Meetings />
               </ProtectedRoute>
             }
           />
