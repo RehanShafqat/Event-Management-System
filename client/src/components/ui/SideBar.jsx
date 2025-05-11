@@ -10,6 +10,7 @@ import {
   ListChecks,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 const SideBar = () => {
   return (
@@ -101,19 +102,32 @@ const SideBar = () => {
   );
 };
 
-// Custom Components
 function CollapsibleNavGroup({ title, icon, children }) {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="space-y-1">
       <Button
         variant="ghost"
         className="w-full justify-start hover:bg-gray-800"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
       >
         {icon}
         {title}
-        <ChevronDown className="ml-auto h-4 w-4" />
+        <ChevronDown
+          className={`ml-auto h-4 w-4 transition-transform duration-200 ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        />
       </Button>
-      <div className="ml-4 space-y-1">{children}</div>
+      <div
+        className={`ml-4 space-y-1 overflow-hidden transition-all duration-200 ${
+          isOpen ? "max-h-96" : "max-h-0"
+        }`}
+      >
+        {children}
+      </div>
     </div>
   );
 }
