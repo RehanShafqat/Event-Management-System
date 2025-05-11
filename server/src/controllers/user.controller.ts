@@ -9,6 +9,7 @@ import {
 } from "../utils/CustomError";
 import { sendEmail } from "../utils/emailSender";
 import { IUser, Role } from "../types/user.types";
+import logger from "../utils/logger";
 
 // @desc    Add a President (special route)
 // @route   POST /api/users/president
@@ -488,6 +489,55 @@ export const getUsersByRole = async (
       data: users,
     });
   } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Get all subordinates of the current user
+// @route   GET /api/users/subordinates
+// @access  Private
+export const getSubordinates = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const currentUser = req.user as IUser;
+    logger.info(
+      `Getting subordinates for user: ${currentUser._id} with role: ${currentUser.role}`
+    );
+
+    // If user has no subordinates, return empty array
+    if (!currentUser.subordinates || currentUser.subordinates.length === 0) {
+      logger.info(`No subordinates found for user: ${currentUser._id}`);
+      res.status(200).json({
+        success: true,
+        data: [],
+        message: "No subordinates found",
+      });
+      return;
+    }
+
+    // Get all subordinates with their basic information
+    const subordinates = await User.find({
+      _id: { $in: currentUser.subordinates },
+    }).select("_id name email role department imageUrl");
+
+    logger.info(
+      `Found ${subordinates.length} subordinates for user: ${currentUser._id}`
+    );
+
+    res.status(200).json({
+      success: true,
+      count: subordinates.length,
+      data: subordinates,
+      message:
+        subordinates.length > 0
+          ? "Subordinates retrieved successfully"
+          : "No subordinates found",
+    });
+  } catch (error) {
+    logger.error(`Error getting subordinates: ${error}`);
     next(error);
   }
 };

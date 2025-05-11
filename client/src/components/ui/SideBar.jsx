@@ -79,18 +79,14 @@ const SideBar = () => {
           title="Tasks"
           icon={<ListChecks className="mr-2 h-4 w-4" />}
         >
-          <Button
-            variant="ghost"
-            className="w-full justify-start pl-8 hover:bg-gray-800"
-          >
-            Assign Tasks
-          </Button>
-          <Button
-            variant="ghost"
-            className="w-full justify-start pl-8 hover:bg-gray-800"
-          >
-            Track Progress of Tasks
-          </Button>
+          <Link to="/tasks">
+            <Button
+              variant="ghost"
+              className="w-full justify-start pl-8 hover:bg-gray-800"
+            >
+              Manage Tasks
+            </Button>
+          </Link>
         </CollapsibleNavGroup>
 
         <Button

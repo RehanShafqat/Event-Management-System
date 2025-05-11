@@ -9,6 +9,7 @@ import {
   deleteUser,
   updatePassword,
   getUsersByRole,
+  getSubordinates,
 } from "../controllers/user.controller";
 import { protect, authorize } from "../middleware/auth.middleware";
 import { Role } from "../types/user.types";
@@ -152,6 +153,45 @@ router.post("/", protect, addUser);
  *                         format: date-time
  */
 router.get("/", protect, getUsers);
+
+/**
+ * @swagger
+ * /api/users/subordinates:
+ *   get:
+ *     summary: Get all subordinates of the current user
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of subordinates
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                       name:
+ *                         type: string
+ *                       email:
+ *                         type: string
+ *                       role:
+ *                         type: string
+ */
+router.get(
+  "/subordinates",
+  protect,
+  authorize("President", "VP", "Head", "AVP", "Deputy" as Role),
+  getSubordinates
+);
 
 /**
  * @swagger

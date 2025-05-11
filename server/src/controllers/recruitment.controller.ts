@@ -248,17 +248,13 @@ export const updateApplicationStatus = async (
     if (status === "selected") {
       try {
         // Generate a temporary password (name + random number)
-        const tempPassword = `${application.name}${Math.floor(Math.random() * 1000)}`;
+        const tempPassword = `${application.name.replace(/\s+/g, "")}${Math.floor(Math.random() * 1000)}`;
 
-        // Hash the password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(tempPassword, salt);
-
-        // Create new user
+        // Create new user with plain password (it will be hashed by the User model's pre-save hook)
         const newUser = await User.create({
           name: application.name,
           email: application.email,
-          password: hashedPassword,
+          password: tempPassword, // The User model will hash this password
           role: application.appliedRole,
           isActive: true,
           department: "SOFTEC",
@@ -270,7 +266,11 @@ export const updateApplicationStatus = async (
           const userId = newUser._id.toString();
           const competitionId = competition._id.toString();
 
+          // Add user to competition staff based on role
           switch (application.appliedRole) {
+            case "AVP":
+              competition.avp = userId;
+              break;
             case "Head":
               competition.heads = [...(competition.heads as string[]), userId];
               break;
@@ -295,6 +295,89 @@ export const updateApplicationStatus = async (
             competitionId,
           ];
           await newUser.save();
+
+          // Add the new user to subordinates list of all users one level above their role
+          const roleHierarchy = {
+            AVP: "VP", // VP is one level above AVP
+            Head: "AVP", // AVP is one level above Head
+            Deputy: "Head", // Head is one level above Deputy
+            Officer: "Deputy", // Deputy is one level above Officer
+          };
+
+          const superiorRole = roleHierarchy[application.appliedRole];
+          logger.info(
+            `Selected role: ${application.appliedRole}, Superior role: ${superiorRole}`
+          );
+
+          if (superiorRole) {
+            // For VP role, find all VPs in the organization
+            if (superiorRole === "VP") {
+              const vps = await User.find({ role: "VP" });
+              logger.info(`Found ${vps.length} VPs in the organization`);
+
+              // Add the new user to each VP's subordinates list
+              for (const vp of vps) {
+                logger.info(`Processing VP: ${vp.name}`);
+                logger.info(`Current subordinates: ${vp.subordinates}`);
+
+                // Initialize subordinates array if it doesn't exist
+                if (!vp.subordinates) {
+                  vp.subordinates = [];
+                }
+
+                if (!vp.subordinates.includes(userId)) {
+                  vp.subordinates.push(userId);
+                  await vp.save();
+                  logger.info(
+                    `Added ${newUser.name} to VP ${vp.name}'s subordinates list`
+                  );
+                } else {
+                  logger.info(
+                    `${newUser.name} is already in VP ${vp.name}'s subordinates list`
+                  );
+                }
+              }
+            } else {
+              // For other roles, find users with the superior role in this competition
+              const superiorUsers = await User.find({
+                role: superiorRole,
+                competitions: competitionId,
+              });
+
+              logger.info(
+                `Found ${superiorUsers.length} superior users with role ${superiorRole}`
+              );
+
+              // Add the new user to each superior's subordinates list
+              for (const superior of superiorUsers) {
+                logger.info(
+                  `Processing superior user: ${superior.name} (${superior.role})`
+                );
+                logger.info(`Current subordinates: ${superior.subordinates}`);
+
+                // Initialize subordinates array if it doesn't exist
+                if (!superior.subordinates) {
+                  superior.subordinates = [];
+                }
+
+                if (!superior.subordinates.includes(userId)) {
+                  superior.subordinates.push(userId);
+                  await superior.save();
+                  logger.info(
+                    `Added ${newUser.name} to ${superior.name}'s subordinates list`
+                  );
+                } else {
+                  logger.info(
+                    `${newUser.name} is already in ${superior.name}'s subordinates list`
+                  );
+                }
+              }
+            }
+          } else {
+            logger.warn(
+              `No superior role found for ${application.appliedRole}`
+            );
+          }
         }
 
         // Send selection email with credentials

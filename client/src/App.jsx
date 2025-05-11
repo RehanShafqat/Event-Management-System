@@ -17,6 +17,9 @@ import CompetitionDetails from "@/Pages/CompetitionDetails";
 import PublicCompetitionDetail from "@/Pages/PublicCompetitionDetail";
 import LoginNavBar from "./components/ui/LoginNavBar";
 import LoginLayout from "./components/ui/LoginLayout";
+import Tasks from "./pages/Tasks";
+import RecruitmentForm from "@/Pages/RecruitmentForm";
+import RecruitmentApplications from "./Pages/RecruitmentApplications";
 
 function App() {
   return (
@@ -34,6 +37,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/recruitment/apply" element={<RecruitmentForm />} />
+          <Route path="/recruitment/applications" element={<RecruitmentApplications />} />
         </Route>
 
         <Route element={<LoginLayout />}>
@@ -86,6 +90,22 @@ function App() {
             element={
               <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP]}>
                 <CompetitionDetail />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/tasks"
+            element={
+              <ProtectedRoute
+                requiredRole={[
+                  ROLES.PRESIDENT,
+                  ROLES.VP,
+                  ROLES.AVP,
+                  ROLES.HEAD,
+                  ROLES.DEPUTY,
+                ]}
+              >
+                <Tasks />
               </ProtectedRoute>
             }
           />

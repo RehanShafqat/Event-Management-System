@@ -47,6 +47,11 @@ const user = {
     return axiosInstance.get(`/users/by-role/${role}`);
   },
 
+  // Get subordinates
+  getSubordinates: async () => {
+    return axiosInstance.get("/users/subordinates");
+  },
+
   // Create new user
   createUser: async (userData) => {
     return axiosInstance.post("/users", userData);
@@ -161,12 +166,46 @@ const recruitment = {
   },
 };
 
+const task = {
+  // Get all tasks
+  getAll: async (filters = {}) => {
+    const queryParams = new URLSearchParams(filters).toString();
+    return axiosInstance.get(`/tasks?${queryParams}`);
+  },
+
+  // Get single task
+  getById: async (id) => {
+    return axiosInstance.get(`/tasks/${id}`);
+  },
+
+  // Create new task
+  create: async (taskData) => {
+    return axiosInstance.post("/tasks", taskData);
+  },
+
+  // Update task
+  update: async (id, taskData) => {
+    return axiosInstance.put(`/tasks/${id}`, taskData);
+  },
+
+  // Update task status
+  updateStatus: async (id, statusData) => {
+    return axiosInstance.put(`/tasks/${id}/status`, statusData);
+  },
+
+  // Delete task
+  delete: async (id) => {
+    return axiosInstance.delete(`/tasks/${id}`);
+  },
+};
+
 const api = {
   auth,
   user,
   competition,
   participation,
   recruitment,
+  task,
 };
 
 export default api;

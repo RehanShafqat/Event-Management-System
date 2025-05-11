@@ -71,33 +71,33 @@ export const authorize = (...roles: Role[]) => {
 };
 
 // Middleware to check if user is in hierarchy chain
-export const checkHierarchy = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void => {
-  try {
-    const { user } = req;
-    const { subordinateId } = req.params;
+// export const checkHierarchy = (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ): void => {
+//   try {
+//     const { user } = req;
+//     const { subordinateId } = req.params;
 
-    if (!user) {
-      throw new UnauthorizedError("User not found");
-    }
+//     if (!user) {
+//       throw new UnauthorizedError("User not found");
+//     }
 
-    // President can access all users
-    if (user.role === "President") {
-      return next();
-    }
+//     // President can access all users
+//     if (user.role === "President") {
+//       return next();
+//     }
 
-    // Check if the subordinate user is in the hierarchy chain
-    const isInHierarchy = user.subordinates.includes(subordinateId);
+//     // Check if the subordinate user is in the hierarchy chain
+//     const isInHierarchy = user.subordinates.includes(subordinateId);
 
-    if (!isInHierarchy) {
-      throw new ForbiddenError("Not authorized to access this user");
-    }
+//     if (!isInHierarchy) {
+//       throw new ForbiddenError("Not authorized to access this user");
+//     }
 
-    next();
-  } catch (error) {
-    next(error);
-  }
-};
+//     next();
+//   } catch (error) {
+//     next(error);
+//   }
+// };
