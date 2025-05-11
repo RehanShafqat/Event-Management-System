@@ -30,6 +30,44 @@ export default function CompetitionForm({ competition, isEditing = false }) {
     });
     const [initialData, setInitialData] = useState(null);
 
+    const hasChanges = () => {
+        if (!initialData) return true;
+
+        // Compare each field individually
+        const fields = [
+            'name',
+            'description',
+            'imageUrl',
+            'registrationFee',
+            'winnerPrize',
+            'runnerUpPrize',
+            'registrationDeadline',
+            'eventDate',
+            'venue',
+            'maxParticipantsPerTeam',
+            'status',
+            'avp'
+        ];
+
+        return fields.some(field => {
+            const currentValue = formData[field];
+            const initialValue = initialData[field];
+
+            // Handle numeric fields
+            if (['registrationFee', 'winnerPrize', 'runnerUpPrize', 'maxParticipantsPerTeam'].includes(field)) {
+                return Number(currentValue) !== Number(initialValue);
+            }
+
+            // Handle date fields
+            if (['registrationDeadline', 'eventDate'].includes(field)) {
+                return currentValue !== initialValue;
+            }
+
+            // Handle all other fields
+            return currentValue !== initialValue;
+        });
+    };
+
     // Debug effect to track changes
     useEffect(() => {
         if (initialData) {
@@ -37,7 +75,7 @@ export default function CompetitionForm({ competition, isEditing = false }) {
             console.log('Current Form Data:', competition);
             console.log('Has Changes:', hasChanges());
         }
-    }, [formData, initialData]);
+    }, [formData, initialData, competition]);
 
     useEffect(() => {
         if (!avps && !avpsLoading) {
@@ -77,44 +115,6 @@ export default function CompetitionForm({ competition, isEditing = false }) {
             }));
         }
     }, [competition?.avp?.name, avps, avpsLoading]);
-
-    const hasChanges = () => {
-        if (!initialData) return true;
-
-        // Compare each field individually
-        const fields = [
-            'name',
-            'description',
-            'imageUrl',
-            'registrationFee',
-            'winnerPrize',
-            'runnerUpPrize',
-            'registrationDeadline',
-            'eventDate',
-            'venue',
-            'maxParticipantsPerTeam',
-            'status',
-            'avp'
-        ];
-
-        return fields.some(field => {
-            const currentValue = formData[field];
-            const initialValue = initialData[field];
-
-            // Handle numeric fields
-            if (['registrationFee', 'winnerPrize', 'runnerUpPrize', 'maxParticipantsPerTeam'].includes(field)) {
-                return Number(currentValue) !== Number(initialValue);
-            }
-
-            // Handle date fields
-            if (['registrationDeadline', 'eventDate'].includes(field)) {
-                return currentValue !== initialValue;
-            }
-
-            // Handle all other fields
-            return currentValue !== initialValue;
-        });
-    };
 
     const uploadToCloudinary = async (file) => {
         setIsLoading(true);

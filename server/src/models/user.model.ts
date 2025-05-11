@@ -31,6 +31,15 @@ const UserSchema: Schema = new Schema(
       enum: ["President", "VP", "AVP", "Head", "Deputy", "Officer"],
       required: [true, "Please provide a role"],
     },
+    department: {
+      type: String,
+      required: [true, "Please provide a department"],
+      trim: true,
+    },
+    imageUrl: {
+      type: String,
+      default: "", // Default empty string for no image
+    },
     mfaSecret: {
       type: String,
       select: false,

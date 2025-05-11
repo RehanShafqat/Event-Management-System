@@ -19,7 +19,7 @@ export const addPresident = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, department, imageUrl } = req.body;
 
     // Check if a president already exists
     const existingPresident = await User.findOne({ role: "President" });
@@ -34,6 +34,8 @@ export const addPresident = async (
       email,
       password,
       role: "President",
+      department,
+      imageUrl,
     });
 
     res.status(201).json({
@@ -43,6 +45,8 @@ export const addPresident = async (
         name: president.name,
         email: president.email,
         role: president.role,
+        department: president.department,
+        imageUrl: president.imageUrl,
       },
     });
   } catch (error) {
@@ -62,7 +66,7 @@ export const addUser = async (
   session.startTransaction();
 
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, department, imageUrl } = req.body;
     const currentUser = req.user as IUser;
 
     // Check valid role hierarchy based on the current user's role
@@ -82,6 +86,8 @@ export const addUser = async (
           email,
           password,
           role,
+          department,
+          imageUrl,
           supervisor: currentUser._id,
         },
       ],
@@ -107,7 +113,7 @@ export const addUser = async (
       html: `
         <h1>Welcome to SOFTEC Management System</h1>
         <p>Dear ${name},</p>
-        <p>You have been added to the SOFTEC Management System as a ${role}.</p>
+        <p>You have been added to the SOFTEC Management System as a ${role} in the ${department} department.</p>
         <p>Your login credentials are:</p>
         <p>Email: ${email}</p>
         <p>Password: ${password}</p>
@@ -124,6 +130,8 @@ export const addUser = async (
         name: newUser[0].name,
         email: newUser[0].email,
         role: newUser[0].role,
+        department: newUser[0].department,
+        imageUrl: newUser[0].imageUrl,
       },
     });
   } catch (error) {
@@ -229,7 +237,7 @@ export const updateUser = async (
   try {
     const currentUser = req.user as IUser;
     const { id } = req.params;
-    const { name, email } = req.body;
+    const { name, email, department, imageUrl } = req.body;
 
     // Don't allow password updates through this route
     if (req.body.password) {
@@ -262,6 +270,8 @@ export const updateUser = async (
       {
         name,
         email,
+        department,
+        imageUrl,
       },
       {
         new: true,
@@ -447,3 +457,37 @@ async function checkValidHierarchy(
 
   return roleHierarchy[currentRole].includes(targetRole);
 }
+
+// Get users by role
+export const getUsersByRole = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { role } = req.params;
+
+    // Validate role
+    if (
+      !["President", "AVP", "VP", "Head", "Deputy", "Officer"].includes(role)
+    ) {
+      res.status(400).json({
+        success: false,
+        message: "Invalid role specified",
+      });
+      return;
+    }
+
+    const users = await User.find({ role })
+      .select("_id name email role")
+      .sort({ name: 1 });
+
+    res.status(200).json({
+      success: true,
+      count: users.length,
+      data: users,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

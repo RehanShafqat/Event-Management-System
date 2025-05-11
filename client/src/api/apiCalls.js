@@ -98,10 +98,33 @@ const competition = {
   },
 };
 
+const participation = {
+  // Get all competitions for public view
+  getAllPublicCompetitions: async () => {
+    return axiosInstance.get("/competitions/public");
+  },
+
+  // Get single competition details for public view
+  getPublicCompetitionById: async (id) => {
+    return axiosInstance.get(`/competitions/public/${id}`);
+  },
+
+  registerTeam: async (teamData) => {
+    return axiosInstance.post(
+      `/competitions/${teamData.competitionId}/register`,
+      {
+        teamName: teamData.teamName,
+        participants: teamData.participants,
+      }
+    );
+  },
+};
+
 const api = {
   auth,
   user,
   competition,
+  participation,
 };
 
 export default api;

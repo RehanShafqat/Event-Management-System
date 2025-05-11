@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { X, Upload, CheckCircle, Clock, XCircle } from "lucide-react";
 import { DialogDescription } from "@/components/ui/dialog";
+import { toast } from "sonner";
 
 const TeamDetailsModal = ({ open, onClose, team }) => {
     const [paymentProof, setPaymentProof] = useState(null);
@@ -28,6 +29,7 @@ const TeamDetailsModal = ({ open, onClose, team }) => {
                 setPaymentProof(imageUrl);
             } catch (error) {
                 console.error("Error uploading payment proof:", error);
+                toast.error("Failed to upload payment proof");
             }
         }
     };
@@ -35,12 +37,21 @@ const TeamDetailsModal = ({ open, onClose, team }) => {
     const handlePaymentUpdate = async () => {
         if (!paymentProof) return;
 
+        const toastId = toast.loading("Confirming payment...");
         try {
             setIsSubmitting(true);
-            await dispatch(confirmTeamPayment({ registrationId: team._id, paymentProofUrl: paymentProof }));
+            await dispatch(confirmTeamPayment({
+                registrationId: team._id,
+                paymentProofUrl: paymentProof
+            })).unwrap();
+
+            toast.dismiss(toastId);
+            toast.success("Payment confirmed successfully");
             onClose();
         } catch (error) {
             console.error("Error updating payment:", error);
+            toast.dismiss(toastId);
+            toast.error(error.message || "Failed to confirm payment");
         } finally {
             setIsSubmitting(false);
         }

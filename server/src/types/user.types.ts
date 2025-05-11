@@ -7,6 +7,8 @@ export interface IUser extends Document {
   email: string;
   password: string;
   role: Role;
+  department: string;
+  imageUrl?: string;
   mfaSecret?: string;
   mfaEnabled: boolean;
   supervisor?: string;

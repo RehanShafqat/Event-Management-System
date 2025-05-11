@@ -12,6 +12,9 @@ import swaggerJSDoc from "swagger-jsdoc";
 import { swaggerOptions } from "./config/swagger";
 import swaggerUi from "swagger-ui-express";
 import cookieParser from "cookie-parser";
+import UserRoutes from "./routes/user.routes";
+import CompetitionRoutes from "./routes/competition.routes";
+
 dotenv.config();
 
 const app = express();
@@ -54,6 +57,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 // Routes
 app.use("/api/auth", AuthRoutes);
+app.use("/api/users", UserRoutes);
+app.use("/api/competitions", CompetitionRoutes);
 // Error handling
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   errorHandler(err, req, res, next);

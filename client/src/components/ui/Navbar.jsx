@@ -8,7 +8,7 @@ import { ModeToggle } from "@/components/MyComponents/ModeToggle";
 const Navbar = () => {
   console.log("hello");
   return (
-    <nav className=" border-b  px-4 py-3 sticky top-0 z-50">
+    <nav className=" border-b bg-background   px-4 py-3 sticky top-0 ">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-8">
           <Link to="/" className="flex items-center space-x-2 cursor-pointer">

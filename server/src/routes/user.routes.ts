@@ -8,6 +8,7 @@ import {
   updateUserRole,
   deleteUser,
   updatePassword,
+  getUsersByRole,
 } from "../controllers/user.controller";
 import { protect, authorize } from "../middleware/auth.middleware";
 import { Role } from "../types/user.types";
@@ -378,5 +379,58 @@ router.delete("/:id", protect, deleteUser);
  *                   type: string
  */
 router.put("/update-password", protect, updatePassword);
+
+/**
+ * @swagger
+ * /api/users/by-role/{role}:
+ *   get:
+ *     summary: Get users by role
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: role
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: List of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 count:
+ *                   type: number
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                       name:
+ *                         type: string
+ *                       email:
+ *                         type: string
+ *                       role:
+ *                         type: string
+ *                       supervisor:
+ *                         type: string
+ *                       subordinates:
+ *                         type: array
+ *                         items:
+ *                           type: string
+ *                       mfaEnabled:
+ *                         type: boolean
+ *                       createdAt:
+ *                         type: string
+ *                         format: date-time
+ */
+router.get("/by-role/:role", protect, getUsersByRole);
 
 export default router;

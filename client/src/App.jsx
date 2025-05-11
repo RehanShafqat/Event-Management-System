@@ -1,6 +1,6 @@
 import Navbar from "./components/ui/navbar";
 import ApplicationForm from "./Pages/ApplicationForm";
-import Competitions from "./Pages/CompetitionsDetails";
+import Competitions from "./Pages/PublicCompetitions";
 import HomePage from "./Pages/HomePage";
 import Login from "./Pages/Login";
 import About from "./Pages/About";
@@ -15,6 +15,7 @@ import { ROLES } from "./utils/roles";
 import CompetitionsPage from "@/Pages/Competitions";
 import CompetitionDetail from "@/Pages/CompetitionDetail";
 import CompetitionDetails from "@/Pages/CompetitionDetails";
+import PublicCompetitionDetail from "@/Pages/PublicCompetitionDetail";
 
 function App() {
   return (
@@ -24,8 +25,8 @@ function App() {
           <Route exact path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/setup-mfa" element={<MFASetup />} />
-          <Route path="/competitions" element={<Competitions />} />
-
+          <Route path="/public/competitions/:id" element={<PublicCompetitionDetail />} />
+          <Route path="/public/competitions" element={<Competitions />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
         </Route>
@@ -40,7 +41,6 @@ function App() {
             <CompetitionDetails />
           </ProtectedRoute>
         } />
-
 
         <Route
           path="/dashboard"
@@ -62,11 +62,11 @@ function App() {
           path="/crud/competitions/:id"
           element={
             <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP]}>
-              <CompetitionDetail />
+              <CompetitionDetail
+              />
             </ProtectedRoute>
           }
         />
-        {/* <Route path="/competitions/register" element={<ApplicationForm />} /> */}
       </Routes>
     </>
   );

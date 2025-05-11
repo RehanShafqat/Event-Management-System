@@ -63,51 +63,57 @@ export const login = async (
         mfaRequired: true,
         userId: user._id,
       });
-    } else {
-      // Generate MFA secret if not already set
-      if (!user.mfaSecret) {
-        const secret = user.generateMfaSecret();
-        await user.save();
-
-        // Generate QR code
-        const otpauth = authenticator.keyuri(
-          user.email,
-          "SOFTEC Management System",
-          secret
-        );
-        const qrCode = await qrcode.toDataURL(otpauth);
-
-        // Generate token and set cookie
-        const token = user.generateAuthToken();
-        setTokenCookie(res, token);
-
-        res.status(200).json({
-          success: true,
-          user: {
-            id: user._id,
-            name: user.name,
-            email: user.email,
-            role: user.role,
-          },
-          setupMfa: true,
-          qrCode,
-        });
-      } else {
-        // Generate token and set cookie
-        const token = user.generateAuthToken();
-        setTokenCookie(res, token);
-
-        res.status(200).json({
-          success: true,
-          user: {
-            id: user._id,
-            name: user.name,
-            email: user.email,
-            role: user.role,
-          },
-        });
-      }
+      return;
     }
+
+    // Generate MFA secret if not already set
+    if (!user.mfaSecret) {
+      const secret = user.generateMfaSecret();
+      await user.save();
+
+      // Generate QR code
+      const otpauth = authenticator.keyuri(
+        user.email,
+        "SOFTEC Management System",
+        secret
+      );
+      const qrCode = await qrcode.toDataURL(otpauth);
+
+      // Generate token and set cookie
+      const token = user.generateAuthToken();
+      setTokenCookie(res, token);
+
+      res.status(200).json({
+        success: true,
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          department: user.department,
+          imageUrl: user.imageUrl,
+        },
+        setupMfa: true,
+        qrCode,
+      });
+      return;
+    }
+
+    // Generate token and set cookie
+    const token = user.generateAuthToken();
+    setTokenCookie(res, token);
+
+    res.status(200).json({
+      success: true,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        department: user.department,
+        imageUrl: user.imageUrl,
+      },
+    });
   } catch (error) {
     next(error);
   }
@@ -130,7 +136,9 @@ export const verifyMfa = async (
     }
 
     // Find user by ID
-    const user = await User.findById(userId).select("+mfaSecret");
+    const user = await User.findById(userId).select(
+      "+mfaSecret name email role department imageUrl"
+    );
 
     if (!user) {
       throw new UnauthorizedError("User not found");
@@ -167,6 +175,8 @@ export const verifyMfa = async (
         name: user.name,
         email: user.email,
         role: user.role,
+        department: user.department,
+        imageUrl: user.imageUrl,
       },
     });
   } catch (error) {

@@ -10,6 +10,9 @@ export const loginUser = createAsyncThunk(
         credentials.email,
         credentials.password
       );
+
+      // The token is automatically stored in cookies by the server
+      // We just need to store the user data
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);

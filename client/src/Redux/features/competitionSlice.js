@@ -276,20 +276,30 @@ const competitionSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(confirmTeamPayment.pending, (state) => {
-        state.loading = true;
+        // Don't set global loading state for payment confirmation
         state.error = null;
       })
       .addCase(confirmTeamPayment.fulfilled, (state, action) => {
-        state.loading = false;
+        // Don't set global loading state for payment confirmation
         const teamIndex = state.teams.findIndex(
-          (team) => team._id === action.payload._id
+          (team) => team._id === action.payload.data._id
         );
         if (teamIndex !== -1) {
-          state.teams[teamIndex] = action.payload;
+          state.teams[teamIndex] = action.payload.data;
+        }
+        if (state.currentCompetition) {
+          const competitionTeamIndex =
+            state.currentCompetition.teams?.findIndex(
+              (team) => team._id === action.payload.data._id
+            );
+          if (competitionTeamIndex !== -1) {
+            state.currentCompetition.teams[competitionTeamIndex] =
+              action.payload.data;
+          }
         }
       })
       .addCase(confirmTeamPayment.rejected, (state, action) => {
-        state.loading = false;
+        // Don't set global loading state for payment confirmation
         state.error = action.payload;
       });
   },

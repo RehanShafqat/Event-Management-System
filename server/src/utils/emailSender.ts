@@ -88,7 +88,14 @@ export const generateCompetitionRegistrationEmail = (
       <p><strong>Participants:</strong> ${participants.join(", ")}</p>
       <p><strong>Registration Date:</strong> ${registrationDate.toDateString()}</p>
     </div>
-    <p>Please log in to the SOFTEC Management System for more details and updates.</p>
+    <div style="background-color: #e8f5e9; padding: 15px; border-radius: 5px; margin-top: 20px;">
+      <h3>Payment Details</h3>
+      <p><strong>Bank Name:</strong> ${process.env.BANK_NAME}</p>
+      <p><strong>Account IBAN:</strong> ${process.env.ACCOUNT_IBAN}</p>
+      <p><strong>Account Holder:</strong> ${process.env.ACCOUNT_HOLDER}</p>
+      <p style="color: #d32f2f; font-weight: bold;">Please complete the payment to confirm your participation.</p>
+    </div>
+    
   `;
 };
 
