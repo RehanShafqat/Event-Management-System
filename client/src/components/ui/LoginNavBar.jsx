@@ -47,7 +47,7 @@ const LoginNavBar = () => {
         </div>
 
         <h2 className="text-xl text-white font-semibold">
-          {user.role + " Dasshboard"}
+          {user.role + " Dashboard"}
         </h2>
       </div>
 

@@ -17,6 +17,7 @@ import CompetitionDetails from "@/Pages/CompetitionDetails";
 import PublicCompetitionDetail from "@/Pages/PublicCompetitionDetail";
 import LoginNavBar from "./components/ui/LoginNavBar";
 import LoginLayout from "./components/ui/LoginLayout";
+import RecruitmentForm from "./Pages/RecruitmentForm";
 
 function App() {
   return (
