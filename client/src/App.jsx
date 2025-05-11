@@ -1,4 +1,4 @@
-import Navbar from "./components/ui/navbar";
+
 import ApplicationForm from "./Pages/ApplicationForm";
 import Competitions from "./Pages/PublicCompetitions";
 import HomePage from "./Pages/HomePage";

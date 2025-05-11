@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { RecruitmentApplication } from "../models/recruitmentApplication.model";
 import User from "../models/user.model";
+import Competition from "../models/competition.model";
 import {
   BadRequestError,
   NotFoundError,
@@ -113,7 +114,9 @@ export const getApplications = async (
       query = { ...query, appliedRole: { $in: ["AVP"] } };
     }
 
-    const applications = await RecruitmentApplication.find(query);
+    const applications = await RecruitmentApplication.find(query)
+      .populate("competition", "name")
+      .sort({ createdAt: -1 });
 
     res.status(200).json({
       success: true,
@@ -241,7 +244,7 @@ export const updateApplicationStatus = async (
       }
     );
 
-    // If application is selected, create a new user account
+    // If application is selected, create a new user account and add to competition staff
     if (status === "selected") {
       try {
         // Generate a temporary password (name + random number)
@@ -261,6 +264,39 @@ export const updateApplicationStatus = async (
           department: "SOFTEC",
         });
 
+        // Add user to competition staff based on their role
+        const competition = await Competition.findById(application.competition);
+        if (competition) {
+          const userId = newUser._id.toString();
+          const competitionId = competition._id.toString();
+
+          switch (application.appliedRole) {
+            case "Head":
+              competition.heads = [...(competition.heads as string[]), userId];
+              break;
+            case "Deputy":
+              competition.deputies = [
+                ...(competition.deputies as string[]),
+                userId,
+              ];
+              break;
+            case "Officer":
+              competition.officers = [
+                ...(competition.officers as string[]),
+                userId,
+              ];
+              break;
+          }
+          await competition.save();
+
+          // Add competition to user's competitions array
+          newUser.competitions = [
+            ...(newUser.competitions || []),
+            competitionId,
+          ];
+          await newUser.save();
+        }
+
         // Send selection email with credentials
         await sendEmail({
           to: application.email,
@@ -273,6 +309,7 @@ export const updateApplicationStatus = async (
             <p><strong>Email:</strong> ${application.email}</p>
             <p><strong>Temporary Password:</strong> ${tempPassword}</p>
             <p>Please login to your account and change your password immediately.</p>
+            <p>You have been added to the staff of the competition: ${competition?.name || "N/A"}</p>
             <p>Welcome to the SOFTEC team!</p>
             <p>Regards,</p>
             <p>SOFTEC Team</p>

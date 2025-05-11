@@ -50,16 +50,14 @@ const Navbar = () => {
 
             <Link to={"/about"}>
               <Button variant="ghost">
-                <Button variant="ghost">
-                  <Info className="mr-2 h-4 w-4" /> About
-                </Button>
+                <Info className="mr-2 h-4 w-4" /> About
+              </Button>
             </Link>
 
             <Link to={"/contact"}>
               <Button variant="ghost">
-                <Button variant="ghost">
-                  <Mail className="mr-2 h-4 w-4" /> Contact
-                </Button>
+                <Mail className="mr-2 h-4 w-4" /> Contact
+              </Button>
             </Link>
           </div>
         </div>
