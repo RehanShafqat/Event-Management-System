@@ -7,9 +7,9 @@ import { Users } from "lucide-react";
 export default function CompetitionStaff({ competition }) {
     const staffMembers = [
         { role: "AVP", members: [competition.avp] },
-        { role: "Heads", members: competition.heads },
-        { role: "Deputies", members: competition.deputies },
-        { role: "Officers", members: competition.officers },
+        { role: "Head", members: competition.heads },
+        { role: "Deputy", members: competition.deputies },
+        { role: "Officer", members: competition.officers },
     ];
 
     return (
@@ -38,8 +38,8 @@ export default function CompetitionStaff({ competition }) {
                                         <TableCell>
                                             <Badge variant="outline" className={
                                                 staffGroup.role === "AVP" ? "bg-purple-100 text-purple-800" :
-                                                    staffGroup.role === "Heads" ? "bg-blue-100 text-blue-800" :
-                                                        staffGroup.role === "Deputies" ? "bg-green-100 text-green-800" :
+                                                    staffGroup.role === "Head" ? "bg-blue-100 text-blue-800" :
+                                                        staffGroup.role === "Deputy" ? "bg-green-100 text-green-800" :
                                                             "bg-yellow-100 text-yellow-800"
                                             }>
                                                 {staffGroup.role}

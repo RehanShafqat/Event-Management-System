@@ -1,4 +1,3 @@
-import Navbar from "./components/ui/navbar";
 import ApplicationForm from "./Pages/ApplicationForm";
 import Competitions from "./Pages/PublicCompetitions";
 import HomePage from "./Pages/HomePage";
@@ -34,6 +33,7 @@ function App() {
           <Route path="/public/competitions" element={<Competitions />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/recruitment/apply" element={<RecruitmentForm />} />
         </Route>
 
         <Route element={<LoginLayout />}>
