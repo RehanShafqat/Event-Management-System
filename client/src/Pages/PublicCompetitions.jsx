@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
@@ -12,7 +12,9 @@ import { fetchPublicCompetitions } from "@/Redux/features/participationSlice";
 
 function PublicCompetitions() {
   const dispatch = useDispatch();
-  const { competitions, loading, error } = useSelector((state) => state.participation);
+  const { competitions, loading, error } = useSelector(
+    (state) => state.participation
+  );
 
   useEffect(() => {
     dispatch(fetchPublicCompetitions());
@@ -59,7 +61,10 @@ function PublicCompetitions() {
                   <CardHeader className="p-0">
                     <div className="relative h-48 overflow-hidden">
                       <img
-                        src={competition.imageUrl || "https://via.placeholder.com/400x300"}
+                        src={
+                          competition.imageUrl ||
+                          "https://via.placeholder.com/400x300"
+                        }
                         alt={competition.name}
                         className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
                       />
@@ -76,12 +81,18 @@ function PublicCompetitions() {
                       {competition.description}
                     </p>
                     <div className="flex items-center justify-between text-sm">
-                      <span>📅 {new Date(competition.eventDate).toLocaleDateString()}</span>
+                      <span>
+                        📅{" "}
+                        {new Date(competition.eventDate).toLocaleDateString()}
+                      </span>
                       <span>📍 {competition.venue}</span>
                     </div>
                   </CardContent>
                   <CardFooter className="p-6 pt-0">
-                    <Link to={`/public/competitions/${competition._id}`} className="w-full">
+                    <Link
+                      to={`/public/competitions/${competition._id}`}
+                      className="w-full"
+                    >
                       <button className="w-full py-2 px-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-300">
                         View Details & Register
                       </button>

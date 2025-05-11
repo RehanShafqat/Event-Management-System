@@ -16,6 +16,8 @@ import CompetitionsPage from "@/Pages/Competitions";
 import CompetitionDetail from "@/Pages/CompetitionDetail";
 import CompetitionDetails from "@/Pages/CompetitionDetails";
 import PublicCompetitionDetail from "@/Pages/PublicCompetitionDetail";
+import LoginNavBar from "./components/ui/LoginNavBar";
+import LoginLayout from "./components/ui/LoginLayout";
 
 function App() {
   return (
@@ -25,48 +27,69 @@ function App() {
           <Route exact path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/setup-mfa" element={<MFASetup />} />
-          <Route path="/public/competitions/:id" element={<PublicCompetitionDetail />} />
+          <Route
+            path="/public/competitions/:id"
+            element={<PublicCompetitionDetail />}
+          />
           <Route path="/public/competitions" element={<Competitions />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
         </Route>
 
-        <Route path="/profile" element={
-          <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP, ROLES.AVP, ROLES.HEAD, ROLES.DEPUTY, ROLES.OFFICER]}>
-            <ProfilePage />
-          </ProtectedRoute>
-        } />
-        <Route path="/competitions/:id" element={
-          <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP, ROLES.AVP]}>
-            <CompetitionDetails />
-          </ProtectedRoute>
-        } />
+        <Route element={<LoginLayout />}>
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute
+                requiredRole={[
+                  ROLES.PRESIDENT,
+                  ROLES.VP,
+                  ROLES.AVP,
+                  ROLES.HEAD,
+                  ROLES.DEPUTY,
+                  ROLES.OFFICER,
+                ]}
+              >
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/competitions/:id"
+            element={
+              <ProtectedRoute
+                requiredRole={[ROLES.PRESIDENT, ROLES.VP, ROLES.AVP]}
+              >
+                <CompetitionDetails />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP]}>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/crud/competitions"
-          element={
-            <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP]}>
-              <CompetitionsPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/crud/competitions/:id"
-          element={
-            <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP]}>
-              <CompetitionDetail
-              />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP]}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/crud/competitions"
+            element={
+              <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP]}>
+                <CompetitionsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/crud/competitions/:id"
+            element={
+              <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP]}>
+                <CompetitionDetail />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
       </Routes>
     </>
   );
