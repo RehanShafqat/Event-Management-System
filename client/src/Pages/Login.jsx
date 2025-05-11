@@ -56,7 +56,9 @@ const Login = () => {
           navigate("/dashboard");
         }
       } else if (loginUser.rejected.match(resultAction)) {
-        toast.error(resultAction.payload?.message || "Login failed", { id: toastId });
+        toast.error(resultAction.payload?.message || "Login failed", {
+          id: toastId,
+        });
       }
     } catch {
       toast.error("An unexpected error occurred", { id: toastId });
@@ -64,22 +66,20 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0e0e0e]">
-      <Card className="w-[400px] bg-[#1a1a1a] border border-[#2a2a2a]">
+    <div className="min-h-screen flex items-center justify-center">
+      <Card className="w-[400px] border border-[#2a2a2a]/20 shadow-md">
         <CardHeader>
-          <h1 className="text-2xl font-bold text-center text-white">
-            Welcome Back
-          </h1>
+          <h1 className="text-2xl font-bold text-center">Welcome Back</h1>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label className="text-gray-300" htmlFor="email">
+              <Label className="" htmlFor="email">
                 Email
               </Label>
               <Input
                 id="email"
-                className="bg-[#2a2a2a] border-gray-600 text-white placeholder-gray-400 focus-visible:ring-my-purple"
+                className="border-gray-600 placeholder-gray-400 focus-visible:ring-my-purple"
                 name="email"
                 type="email"
                 required
@@ -87,12 +87,12 @@ const Login = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label className="text-gray-300" htmlFor="password">
+              <Label className="" htmlFor="password">
                 Password
               </Label>
               <Input
                 id="password"
-                className="bg-[#2a2a2a] border-gray-600 text-white placeholder-gray-400 focus-visible:ring-my-purple"
+                className="border-gray-600 placeholder-gray-400 focus-visible:ring-my-purple"
                 name="password"
                 type="password"
                 required
@@ -102,17 +102,17 @@ const Login = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <Checkbox id="remember" disabled={loading} />
-                <Label className="text-gray-300" htmlFor="remember">
+                <Label className="" htmlFor="remember">
                   Remember me
                 </Label>
               </div>
-              <a href="#" className="text-gray-300 text-sm underline">
+              <a href="#" className=" text-sm underline">
                 Forgot password?
               </a>
             </div>
             <Button
               type="submit"
-              className="w-full bg-[#e50914] hover:bg-[#f12a34] text-white"
+              className="w-full bg-my-purple hover:bg-my-purple"
               disabled={loading}
             >
               {loading ? "Signing in..." : "Sign In"}
@@ -131,21 +131,21 @@ const Login = () => {
           <div className="flex flex-col gap-2">
             <Button
               variant="outline"
-              className="w-full bg-[#2a2a2a] border-my-purple text-white hover:bg-my-purple hover:text-white transition-colors"
+              className="w-full border-my-purple hover:bg-my-purple transition-colors hover:text-white"
               disabled={loading}
             >
-              <Github className="mr-2 h-4 w-4 text-gray-300" /> GitHub
+              <Github className="mr-2 h-4 w-4" /> GitHub
             </Button>
             <Button
               variant="outline"
-              className="w-full bg-[#2a2a2a] border-my-purple text-white hover:bg-my-purple hover:text-white transition-colors"
+              className="w-full border-my-purple hover:bg-my-purple transition-colors hover:text-white"
               disabled={loading}
             >
-              <Aperture className="mr-2 h-4 w-4 text-gray-300" /> Google
+              <Aperture className="mr-2 h-4 w-4" /> Google
             </Button>
           </div>
         </CardContent>
-        <CardFooter className="text-gray-400 text-sm text-center justify-center">
+        <CardFooter className="text-sm text-center justify-center">
           Don't have an account?{" "}
           <a href="#" className="ml-1 text-my-purple hover:text-[#9d5bdf]">
             Sign up

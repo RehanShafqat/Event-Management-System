@@ -22,30 +22,21 @@ const Navbar = () => {
           </Link>
 
           <div className="hidden md:flex space-x-6">
-            <Link to={"/competitions"}>
-              <Button
-                variant="ghost"
-
-              >
+            <Link to={"/public/competitions"}>
+              <Button variant="ghost">
                 <BrainCircuit mr-2 h-4 w-4 />
                 Competitions
               </Button>
             </Link>
 
             <Link to={"/about"}>
-              <Button
-                variant="ghost"
-
-              >
+              <Button variant="ghost">
                 <Info className="mr-2 h-4 w-4" /> About
               </Button>
             </Link>
 
             <Link to={"/contact"}>
-              <Button
-                variant="ghost"
-
-              >
+              <Button variant="ghost">
                 <Mail className="mr-2 h-4 w-4" /> Contact
               </Button>
             </Link>

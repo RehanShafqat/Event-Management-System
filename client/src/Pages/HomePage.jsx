@@ -40,20 +40,6 @@ const HomePage = () => {
                       alt={`Slide ${index + 1}`}
                       className="w-full h-full object-center"
                     />
-                    <div className="absolute inset-0  bg-opacity-50 flex items-center justify-center">
-                      <div className="text-center px-4">
-                        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                          Welcome to Softec Management
-                        </h2>
-                        <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                          Streamline your workflow with our powerful management
-                          system
-                        </p>
-                        <Button className="bg-my-purple hover:bg-[#9d5bdf] text-white px-8 py-6 text-lg">
-                          Get Started
-                        </Button>
-                      </div>
-                    </div>
                   </div>
                 </CarouselItem>
               ))}
@@ -89,28 +75,36 @@ const HomePage = () => {
                 icon: <Aperture className="h-8 w-8 text-my-purple" />,
               },
             ].map((feature, index) => (
-              <Card key={index} className="border-my-border shadow-xl hover:shadow-2xl transition-all duration-300">
-                <CardHeader className="items-center">
+              <Card
+                key={index}
+                className="border-my-border shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden"
+              >
+                <div className="p-6 flex flex-col items-center h-full">
                   <div className="p-4 rounded-full border-2 border-my-purple mb-4">
                     {feature.icon}
                   </div>
-                  <h3 className="text-xl font-semibold ">
-                    {feature.title}
-                  </h3>
-                </CardHeader>
-                <CardContent>
-                  <p className=" text-center">
-                    {feature.description}
-                  </p>
-                </CardContent>
-                <CardFooter className="justify-center">
-                  <Button
-                    variant="outline"
-                    className="border-my-purple text-my-purple dark:text-white dark:hover:bg-my-purple hover:bg-my-purple  hover:text-white"
-                  >
-                    Learn more
-                  </Button>
-                </CardFooter>
+
+                  <CardHeader className="p-0 w-full text-center">
+                    <h3 className="text-lg font-semibold leading-tight break-words">
+                      {feature.title}
+                    </h3>
+                  </CardHeader>
+
+                  <CardContent className="flex-grow p-0 pt-2 text-center">
+                    <p className="text-sm text-muted-foreground">
+                      {feature.description}
+                    </p>
+                  </CardContent>
+
+                  <CardFooter className="p-0 pt-4">
+                    <Button
+                      variant="outline"
+                      className="border-my-purple text-my-purple hover:bg-my-purple hover:text-white"
+                    >
+                      Learn more
+                    </Button>
+                  </CardFooter>
+                </div>
               </Card>
             ))}
           </div>
@@ -147,7 +141,7 @@ const HomePage = () => {
               <Aperture className="h-8 w-8 text-my-purple" />
               <span className="text-xl font-bold ">Softec</span>
             </div>
-            <p className="text-gray-400">
+            <p className="">
               Powerful management system for modern businesses.
             </p>
             <div className="flex space-x-4 mt-4">
@@ -172,22 +166,22 @@ const HomePage = () => {
             <h3 className="text-lg font-semibold mb-4">Company</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-400 ">
+                <a href="#" className="">
                   About Us
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white">
+                <a href="#" className="">
                   Careers
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white">
+                <a href="#" className="">
                   Blog
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white">
+                <a href="#" className="">
                   Press
                 </a>
               </li>
@@ -195,25 +189,25 @@ const HomePage = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Support</h3>
+            <h3 className="text-lg font-semibold mb-4">Support</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-400 hover:text-white">
+                <a href="#" className="">
                   Help Center
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white">
+                <a href="#" className="">
                   Community
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white">
+                <a href="#" className="">
                   Status
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white">
+                <a href="#" className="">
                   Contact Us
                 </a>
               </li>
@@ -221,19 +215,19 @@ const HomePage = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Contact</h3>
+            <h3 className="text-lg font-semibold mb-4">Contact</h3>
             <ul className="space-y-2">
-              <li className="flex items-center text-gray-400">
+              <li className="flex items-center">
                 <Mail className="mr-2 h-4 w-4" /> info@softec.com
               </li>
-              <li className="flex items-center text-gray-400">
+              <li className="flex items-center">
                 <Phone className="mr-2 h-4 w-4" /> +1 (555) 123-4567
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto mt-8 pt-8 border-t border-[#2a2a2a] text-center text-gray-400">
+        <div className="max-w-7xl mx-auto mt-8 pt-8 border-t border-[#2a2a2a] text-center">
           <p>
             © {new Date().getFullYear()} Softec Management System. All rights
             reserved.
