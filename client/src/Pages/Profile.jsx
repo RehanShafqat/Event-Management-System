@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 import api from "../api/apiCalls"
+import { uploadToCloudinary } from "@/utils/uploadFile"
 
 export default function ProfilePage() {
     const navigate = useNavigate()
@@ -61,51 +62,18 @@ export default function ProfilePage() {
 
     // Add this useEffect to log the current department value
 
-    const uploadToCloudinary = async (file) => {
-        setIsLoading(true)
-        const toastId = toast.loading("Uploading image...")
-
-        try {
-            // Create a FormData object to send the file
-            const formData = new FormData()
-            formData.append("file", file)
-            formData.append("upload_preset", "softec")
-
-            // Make the API call to Cloudinary
-            const response = await fetch(
-                `https://api.cloudinary.com/v1_1/driuxeclu/image/upload`,
-                {
-                    method: "POST",
-                    body: formData,
-                },
-            )
-
-            if (!response.ok) {
-                throw new Error("Failed to upload image")
-            }
-
-            const data = await response.json()
-
-            // Update profile data with the new avatar URL
-            setProfileData(prev => ({
-                ...prev,
-                imageUrl: data.secure_url,
-            }))
-
-            // Don't show success toast here, let the profile update handle it
-            toast.dismiss(toastId)
-        } catch (err) {
-            console.error("Error uploading image:", err)
-            toast.error("Failed to upload image. Please try again.", { id: toastId })
-        } finally {
-            setIsLoading(false)
-        }
-    }
-
-    const handleAvatarChange = (event) => {
+    const handleAvatarChange = async (event) => {
         const file = event.target.files[0]
         if (file) {
-            uploadToCloudinary(file)
+            try {
+                const imageUrl = await uploadToCloudinary(file, setIsLoading);
+                setProfileData(prev => ({
+                    ...prev,
+                    imageUrl,
+                }));
+            } catch (error) {
+                console.error("Error uploading avatar:", error);
+            }
         }
     }
 

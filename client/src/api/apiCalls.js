@@ -41,11 +41,67 @@ const user = {
       newPassword,
     });
   },
+
+  // Get users by role
+  getUsersByRole: async (role) => {
+    return axiosInstance.get(`/users/by-role/${role}`);
+  },
+};
+
+const competition = {
+  getAll: async () => {
+    return axiosInstance.get("/competitions");
+  },
+
+  getById: async (id) => {
+    return axiosInstance.get(`/competitions/${id}`);
+  },
+
+  create: async (competitionData) => {
+    return axiosInstance.post("/competitions", competitionData);
+  },
+
+  update: async (id, competitionData) => {
+    return axiosInstance.put(`/competitions/${id}`, competitionData);
+  },
+
+  delete: async (id) => {
+    return axiosInstance.delete(`/competitions/${id}`);
+  },
+
+  // Get competition registrations
+  getRegistrations: async (id) => {
+    return axiosInstance.get(`/competitions/${id}/registrations`);
+  },
+
+  // Get competition results
+  getResults: async (id) => {
+    return axiosInstance.get(`/competitions/${id}/results`);
+  },
+
+  // Get competition participants
+  getParticipants: async (id) => {
+    return axiosInstance.get(`/competitions/${id}/participants`);
+  },
+
+  // Get competition teams
+  getTeams: async (id) => {
+    return axiosInstance.get(`/competitions/${id}/teams`);
+  },
+
+  // Confirm team payment
+  confirmTeamPayment: async (registrationId, paymentProofUrl) => {
+    return axiosInstance.put(
+      `/competitions/registrations/${registrationId}/confirm-payment`,
+      { paymentProofUrl }
+    );
+  },
 };
 
 const api = {
   auth,
   user,
+  competition,
 };
 
 export default api;

@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authenticationSlice from "./features/authentication/authSlice";
+import authReducer from "./features/authentication/authSlice";
+import competitionReducer from "./features/competitionSlice";
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    authentication: authenticationSlice,
+    authentication: authReducer,
+    competitions: competitionReducer,
   },
 });
 

@@ -1,6 +1,6 @@
 import Navbar from "./components/ui/navbar";
 import ApplicationForm from "./Pages/ApplicationForm";
-import Competitions from "./Pages/Competitions";
+import Competitions from "./Pages/CompetitionsDetails";
 import HomePage from "./Pages/HomePage";
 import Login from "./Pages/Login";
 import About from "./Pages/About";
@@ -12,6 +12,9 @@ import PublicLayout from "./Pages/PublicLayout";
 import MFASetup from "./Pages/MFASetup";
 import ProfilePage from "./Pages/Profile";
 import { ROLES } from "./utils/roles";
+import CompetitionsPage from "@/Pages/Competitions";
+import CompetitionDetail from "@/Pages/CompetitionDetail";
+import CompetitionDetails from "@/Pages/CompetitionDetails";
 
 function App() {
   return (
@@ -22,15 +25,44 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/setup-mfa" element={<MFASetup />} />
           <Route path="/competitions" element={<Competitions />} />
+
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/profile" element={<ProfilePage />} />
         </Route>
+
+        <Route path="/profile" element={
+          <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP, ROLES.AVP, ROLES.HEAD, ROLES.DEPUTY, ROLES.OFFICER]}>
+            <ProfilePage />
+          </ProtectedRoute>
+        } />
+        <Route path="/competitions/:id" element={
+          <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP, ROLES.AVP]}>
+            <CompetitionDetails />
+          </ProtectedRoute>
+        } />
+
+
         <Route
           path="/dashboard"
           element={
             <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP]}>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/crud/competitions"
+          element={
+            <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP]}>
+              <CompetitionsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/crud/competitions/:id"
+          element={
+            <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP]}>
+              <CompetitionDetail />
             </ProtectedRoute>
           }
         />
