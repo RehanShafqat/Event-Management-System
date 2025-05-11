@@ -46,6 +46,16 @@ const user = {
   getUsersByRole: async (role) => {
     return axiosInstance.get(`/users/by-role/${role}`);
   },
+
+  // Create new user
+  createUser: async (userData) => {
+    return axiosInstance.post("/users", userData);
+  },
+
+  // Delete user
+  deleteUser: async (userId) => {
+    return axiosInstance.delete(`/users/${userId}`);
+  },
 };
 
 const competition = {
@@ -120,11 +130,43 @@ const participation = {
   },
 };
 
+const recruitment = {
+  // Get all applications
+  getApplications: async (filters = {}) => {
+    const queryParams = new URLSearchParams(filters).toString();
+    return axiosInstance.get(`/recruitment/applications?${queryParams}`);
+  },
+
+  // Get single application
+  getApplication: async (id) => {
+    return axiosInstance.get(`/recruitment/applications/${id}`);
+  },
+
+  // Update application status
+  updateApplicationStatus: async (id, statusData) => {
+    return axiosInstance.put(
+      `/recruitment/applications/${id}/status`,
+      statusData
+    );
+  },
+
+  // Delete application
+  deleteApplication: async (id) => {
+    return axiosInstance.delete(`/recruitment/applications/${id}`);
+  },
+
+  // Submit new application
+  submitApplication: async (applicationData) => {
+    return axiosInstance.post("/recruitment/apply", applicationData);
+  },
+};
+
 const api = {
   auth,
   user,
   competition,
   participation,
+  recruitment,
 };
 
 export default api;

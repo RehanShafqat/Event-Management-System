@@ -16,6 +16,8 @@ import CompetitionsPage from "@/Pages/Competitions";
 import CompetitionDetail from "@/Pages/CompetitionDetail";
 import CompetitionDetails from "@/Pages/CompetitionDetails";
 import PublicCompetitionDetail from "@/Pages/PublicCompetitionDetail";
+import RecruitmentApplications from "@/Pages/RecruitmentApplications";
+import RecruitmentForm from "@/Pages/RecruitmentForm";
 
 function App() {
   return (
@@ -29,6 +31,7 @@ function App() {
           <Route path="/public/competitions" element={<Competitions />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/recruitment/apply" element={<RecruitmentForm />} />
         </Route>
 
         <Route path="/profile" element={
@@ -36,6 +39,13 @@ function App() {
             <ProfilePage />
           </ProtectedRoute>
         } />
+
+        <Route path="/recruitment/applications" element={
+          <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP, ROLES.AVP, ROLES.HEAD, ROLES.DEPUTY]}>
+            <RecruitmentApplications />
+          </ProtectedRoute>
+        } />
+
         <Route path="/competitions/:id" element={
           <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP, ROLES.AVP]}>
             <CompetitionDetails />
@@ -62,8 +72,7 @@ function App() {
           path="/crud/competitions/:id"
           element={
             <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP]}>
-              <CompetitionDetail
-              />
+              <CompetitionDetail />
             </ProtectedRoute>
           }
         />
