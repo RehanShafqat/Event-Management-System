@@ -28,6 +28,7 @@ const Contact = () => {
                   <Input
                     id="name"
                     type="text"
+                    placeholder="Enter Name"
                     className=" border-gray-600 text-white placeholder-gray-400 focus-visible:ring-my-purple"
                   />
                 </div>
@@ -38,6 +39,7 @@ const Contact = () => {
                   <Input
                     id="email"
                     type="email"
+                    placeholder="Enter e-mail"
                     className="border-gray-600 placeholder-gray-400 focus-visible:ring-my-purple"
                   />
                 </div>
@@ -48,6 +50,7 @@ const Contact = () => {
                   <textarea
                     id="message"
                     rows={5}
+                    placeholder="Enter Message"
                     className="flex w-full rounded-md border border-gray-600 px-3 py-2 text-sm placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-my-purple focus-visible:ring-offset-2 focus-visible:ring-offset-[#0e0e0e]"
                   />
                 </div>
