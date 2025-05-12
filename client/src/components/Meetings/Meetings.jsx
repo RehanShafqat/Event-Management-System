@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../ui/card";
 import { Input } from "../ui/input";
+import { ROLES } from "../../utils/roles";
 
 const Meetings = () => {
     const dispatch = useDispatch();
@@ -75,10 +76,14 @@ const Meetings = () => {
                     <h1 className="text-3xl font-bold">Meetings</h1>
                     <p className="text-muted-foreground mt-1">Manage your scheduled meetings</p>
                 </div>
-                <Button onClick={() => setIsCreateDialogOpen(true)} className="w-full sm:w-auto">
-                    <Plus className="mr-2 h-4 w-4" />
-                    Create Meeting
-                </Button>
+                {
+                    user.role !== ROLES.OFFICER && (
+                        <Button onClick={() => setIsCreateDialogOpen(true)} className="w-full sm:w-auto">
+                            <Plus className="mr-2 h-4 w-4" />
+                            Create Meeting
+                        </Button>
+                    )
+                }
             </div>
 
             <div className="mb-6">
@@ -250,17 +255,20 @@ const Meetings = () => {
                 </TabsContent>
             </Tabs>
 
-            <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-                <DialogContent className="max-w-2xl">
-                    <DialogHeader>
-                        <DialogTitle className="flex items-center">
-                            <Calendar className="mr-2 h-5 w-5 text-primary" />
-                            Create New Meeting
-                        </DialogTitle>
-                    </DialogHeader>
-                    <CreateMeeting onSuccess={() => setIsCreateDialogOpen(false)} />
-                </DialogContent>
-            </Dialog>
+            {user.role !== ROLES.OFFICER &&
+
+                <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+                    <DialogContent className="max-w-2xl">
+                        <DialogHeader>
+                            <DialogTitle className="flex items-center">
+                                <Calendar className="mr-2 h-5 w-5 text-primary" />
+                                Create New Meeting
+                            </DialogTitle>
+                        </DialogHeader>
+                        <CreateMeeting onSuccess={() => setIsCreateDialogOpen(false)} />
+                    </DialogContent>
+                </Dialog>
+            }
         </div>
     );
 };

@@ -166,7 +166,7 @@ const RecruitmentApplications = () => {
                         <div className="space-y-2">
                             <Label>Status</Label>
                             <select
-                                className="w-full p-2 border rounded-md"
+                                className="w-full bg-background p-2 border rounded-md"
                                 value={statusData.status}
                                 onChange={(e) => setStatusData({ ...statusData, status: e.target.value })}
                             >

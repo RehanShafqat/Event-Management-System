@@ -24,18 +24,17 @@ const LoginNavBar = () => {
   const navigate = useNavigate();
   const { user, loading } = useSelector((state) => state.authentication);
 
-
   useEffect(() => {
     if (!user && !loading) {
-      navigate("/login");
-
+      navigate("/");
     }
-  }, [user, loading, navigate])
+  }, [user, loading, navigate]);
+
   const handleLogout = async () => {
     try {
-      dispatch(logout());
+      await dispatch(logout());
       toast.success("Logged out successfully");
-      navigate("/login");
+      navigate("/");
     } catch {
       toast.error("Failed to logout");
     }
@@ -75,7 +74,7 @@ const LoginNavBar = () => {
             <Button variant="ghost" className="relative h-8 w-8 rounded-full">
               <Avatar className="h-8 w-8">
                 <AvatarFallback className="bg-[#e50914] text-white">
-                  {user?.name.charAt(0)}
+                  {user?.name ? user.name.charAt(0) : 'U'}
                 </AvatarFallback>
               </Avatar>
             </Button>

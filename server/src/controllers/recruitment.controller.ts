@@ -83,15 +83,6 @@ export const getApplications = async (
     const currentUser = req.user as IUser;
 
     // Only President, VP, and AVP can view applications
-    if (
-      currentUser.role !== "President" &&
-      currentUser.role !== "VP" &&
-      currentUser.role !== "AVP"
-    ) {
-      throw new ForbiddenError(
-        "Not authorized to view recruitment applications"
-      );
-    }
 
     let query = {};
 
@@ -191,15 +182,6 @@ export const updateApplicationStatus = async (
     const { status, notes } = req.body;
 
     // Only President, VP, and AVP can update applications
-    if (
-      currentUser.role !== "President" &&
-      currentUser.role !== "VP" &&
-      currentUser.role !== "AVP"
-    ) {
-      throw new ForbiddenError(
-        "Not authorized to update recruitment applications"
-      );
-    }
 
     // Validate status
     if (
@@ -447,11 +429,6 @@ export const deleteApplication = async (
     const { id } = req.params;
 
     // Only President and VP can delete applications
-    if (currentUser.role !== "President" && currentUser.role !== "VP") {
-      throw new ForbiddenError(
-        "Not authorized to delete recruitment applications"
-      );
-    }
 
     const application = await RecruitmentApplication.findById(id);
 

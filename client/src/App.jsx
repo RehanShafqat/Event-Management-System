@@ -21,6 +21,7 @@ import Tasks from "./pages/Tasks";
 import RecruitmentForm from "@/Pages/RecruitmentForm";
 import RecruitmentApplications from "./Pages/RecruitmentApplications";
 import Meetings from "./components/Meetings/Meetings";
+import UnauthorizedPage from "./Pages/Unauthorized";
 
 function App() {
   return (
@@ -34,17 +35,19 @@ function App() {
             path="/public/competitions/:id"
             element={<PublicCompetitionDetail />}
           />
+          <Route path="/unauthorized" element={<UnauthorizedPage />} />
           <Route path="/public/competitions" element={<Competitions />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/recruitment/apply" element={<RecruitmentForm />} />
+
+        </Route>
+
+        <Route element={<LoginLayout />}>
           <Route
             path="/recruitment/applications"
             element={<RecruitmentApplications />}
           />
-        </Route>
-
-        <Route element={<LoginLayout />}>
           <Route
             path="/profile"
             element={
@@ -66,7 +69,7 @@ function App() {
             path="/competitions/:id"
             element={
               <ProtectedRoute
-                requiredRole={[ROLES.PRESIDENT, ROLES.VP, ROLES.AVP]}
+                requiredRole={[ROLES.PRESIDENT]}
               >
                 <CompetitionDetails />
               </ProtectedRoute>
@@ -76,7 +79,7 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP]}>
+              <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP, ROLES.AVP, ROLES.HEAD, ROLES.DEPUTY, ROLES.OFFICER]}>
                 <Dashboard />
               </ProtectedRoute>
             }
@@ -84,7 +87,7 @@ function App() {
           <Route
             path="/crud/competitions"
             element={
-              <ProtectedRoute requiredRole={[ROLES.PRESIDENT, ROLES.VP]}>
+              <ProtectedRoute requiredRole={[ROLES.PRESIDENT]}>
                 <CompetitionsPage />
               </ProtectedRoute>
             }
@@ -107,6 +110,7 @@ function App() {
                   ROLES.AVP,
                   ROLES.HEAD,
                   ROLES.DEPUTY,
+                  ROLES.OFFICER,
                 ]}
               >
                 <Tasks />
@@ -123,6 +127,7 @@ function App() {
                   ROLES.AVP,
                   ROLES.HEAD,
                   ROLES.DEPUTY,
+                  ROLES.OFFICER,
                 ]}
               >
                 <Meetings />

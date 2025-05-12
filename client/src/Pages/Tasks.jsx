@@ -108,7 +108,10 @@ const Tasks = () => {
                 <TabsList className="mb-4">
                     <TabsTrigger value="all">All Tasks</TabsTrigger>
                     <TabsTrigger value="assigned-to-me">Assigned to Me</TabsTrigger>
-                    <TabsTrigger value="assigned-by-me">Assigned by Me</TabsTrigger>
+                    {user.role !== ROLES.OFFICER && (
+                        <TabsTrigger value="assigned-by-me">Assigned by Me</TabsTrigger>
+                    )}
+
                 </TabsList>
                 <TabsContent value="all">
                     <TaskList filter="all" />
@@ -116,9 +119,17 @@ const Tasks = () => {
                 <TabsContent value="assigned-to-me">
                     <TaskList filter="assigned-to-me" />
                 </TabsContent>
-                <TabsContent value="assigned-by-me">
-                    <TaskList filter="assigned-by-me" />
-                </TabsContent>
+
+                {user.role !== ROLES.OFFICER && (
+
+                    <TabsContent value="assigned-by-me">
+                        <TaskList filter="assigned-by-me" />
+                    </TabsContent>
+
+                )
+                }
+
+
             </Tabs>
         </div>
     )
