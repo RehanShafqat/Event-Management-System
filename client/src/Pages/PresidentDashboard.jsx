@@ -1,6 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LayoutDashboard, Trophy, Users, Calendar, ListChecks, ChevronRight } from "lucide-react";
+import {
+  LayoutDashboard,
+  Trophy,
+  Users,
+  Calendar,
+  ListChecks,
+  ChevronRight,
+} from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,7 +20,9 @@ export function PresidentDashboard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.authentication);
-  const { meetings, loading: meetingsLoading } = useSelector((state) => state.meetings);
+  const { meetings, loading: meetingsLoading } = useSelector(
+    (state) => state.meetings
+  );
   const { tasks, loading: tasksLoading } = useSelector((state) => state.tasks);
 
   useEffect(() => {
@@ -23,7 +32,8 @@ export function PresidentDashboard() {
 
   // Filter upcoming meetings
   const upcomingMeetings = meetings.filter(
-    (meeting) => meeting.status === "scheduled" && new Date(meeting.dateTime) > new Date()
+    (meeting) =>
+      meeting.status === "scheduled" && new Date(meeting.dateTime) > new Date()
   );
 
   // Filter pending tasks
@@ -31,27 +41,31 @@ export function PresidentDashboard() {
 
   // Filter recent activities (combining meetings and tasks)
   const recentActivities = [
-    ...upcomingMeetings.map(meeting => {
-      console.log('Meeting date:', meeting.dateTime);
+    ...upcomingMeetings.map((meeting) => {
+      console.log("Meeting date:", meeting.dateTime);
       return {
-        type: 'meeting',
+        type: "meeting",
         title: meeting.title,
-        description: `Scheduled for ${new Date(meeting.dateTime).toLocaleDateString()}`,
+        description: `Scheduled for ${new Date(
+          meeting.dateTime
+        ).toLocaleDateString()}`,
         time: meeting.dateTime,
-        icon: <Calendar className="h-4 w-4 text-blue-500" />
+        icon: <Calendar className="h-4 w-4 text-blue-500" />,
       };
     }),
-    ...pendingTasks.map(task => {
-      console.log('Task date:', task.dueDate);
+    ...pendingTasks.map((task) => {
+      console.log("Task date:", task.dueDate);
       return {
-        type: 'task',
+        type: "task",
         title: task.title,
-        description: `Assigned to ${task.assignedTo?.name || 'Unassigned'}`,
+        description: `Assigned to ${task.assignedTo?.name || "Unassigned"}`,
         time: task.dueDate,
-        icon: <ListChecks className="h-4 w-4 text-green-500" />
+        icon: <ListChecks className="h-4 w-4 text-green-500" />,
       };
-    })
-  ].sort((a, b) => new Date(b.time) - new Date(a.time)).slice(0, 5);
+    }),
+  ]
+    .sort((a, b) => new Date(b.time) - new Date(a.time))
+    .slice(0, 5);
 
   return (
     <div className="min-h-screen">
@@ -59,8 +73,12 @@ export function PresidentDashboard() {
       <div className="flex-1 p-4">
         {/* Welcome Section */}
         <div className="mb-6">
-          <h1 className="text-3xl font-bold mb-2">Welcome back, {user?.name}</h1>
-          <p className="text-muted-foreground">Here's what's happening in your organization</p>
+          <h1 className="text-3xl font-bold mb-2">
+            Welcome back, {user?.name}
+          </h1>
+          <p className="text-muted-foreground">
+            Here's what's happening in your organization
+          </p>
         </div>
 
         {/* Stats Grid */}
@@ -69,25 +87,25 @@ export function PresidentDashboard() {
             title="Upcoming Meetings"
             value={upcomingMeetings.length}
             icon={<Calendar className="h-5 w-5 text-primary" />}
-            onClick={() => navigate('/meetings')}
+            onClick={() => navigate("/meetings")}
           />
           <StatCard
             title="Pending Tasks"
             value={pendingTasks.length}
             icon={<ListChecks className="h-5 w-5 text-primary" />}
-            onClick={() => navigate('/tasks')}
+            onClick={() => navigate("/tasks")}
           />
           <StatCard
             title="Team Members"
             value={Object.values(ROLES).length}
             icon={<Users className="h-5 w-5 text-primary" />}
-            onClick={() => navigate('/recruitment/applications')}
+            onClick={() => navigate("/recruitment/applications")}
           />
           <StatCard
             title="Active Projects"
-            value={tasks.filter(t => t.status === "in_progress").length}
+            value={tasks.filter((t) => t.status === "in_progress").length}
             icon={<Trophy className="h-5 w-5 text-primary" />}
-            onClick={() => navigate('/tasks')}
+            onClick={() => navigate("/tasks")}
           />
         </div>
 
@@ -97,7 +115,11 @@ export function PresidentDashboard() {
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <span>Recent Activity</span>
-                <Button variant="ghost" size="sm" onClick={() => navigate('/meetings')}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => navigate("/meetings")}
+                >
                   View All <ChevronRight className="ml-2 h-4 w-4" />
                 </Button>
               </CardTitle>
@@ -110,7 +132,11 @@ export function PresidentDashboard() {
                   description={activity.description}
                   time={getTimeAgo(activity.time)}
                   icon={activity.icon}
-                  onClick={() => navigate(activity.type === 'meeting' ? '/meetings' : '/tasks')}
+                  onClick={() =>
+                    navigate(
+                      activity.type === "meeting" ? "/meetings" : "/tasks"
+                    )
+                  }
                 />
               ))}
             </CardContent>
@@ -124,7 +150,7 @@ export function PresidentDashboard() {
               <Button
                 variant="outline"
                 className="w-full justify-start"
-                onClick={() => navigate('/meetings')}
+                onClick={() => navigate("/meetings")}
               >
                 <Calendar className="mr-2 h-4 w-4 text-primary" />
                 Schedule Meeting
@@ -132,7 +158,7 @@ export function PresidentDashboard() {
               <Button
                 variant="outline"
                 className="w-full justify-start"
-                onClick={() => navigate('/tasks')}
+                onClick={() => navigate("/tasks")}
               >
                 <ListChecks className="mr-2 h-4 w-4 text-primary" />
                 Assign Task
@@ -140,7 +166,7 @@ export function PresidentDashboard() {
               <Button
                 variant="outline"
                 className="w-full justify-start"
-                onClick={() => navigate('/recruitment/applications')}
+                onClick={() => navigate("/recruitment/applications")}
               >
                 <Users className="mr-2 h-4 w-4 text-primary" />
                 Review Applications
@@ -159,7 +185,9 @@ export function PresidentDashboard() {
               {Object.entries(ROLES).map(([role, value]) => (
                 <div key={role} className="p-4 border rounded-lg">
                   <h3 className="font-medium mb-2">{role}</h3>
-                  <p className="text-2xl font-bold">{tasks.filter(t => t.assignedTo?.role === value).length}</p>
+                  <p className="text-2xl font-bold">
+                    {tasks.filter((t) => t.assignedTo?.role === value).length}
+                  </p>
                   <p className="text-sm text-muted-foreground">Active Tasks</p>
                 </div>
               ))}
@@ -173,7 +201,10 @@ export function PresidentDashboard() {
 
 function StatCard({ title, value, icon, onClick }) {
   return (
-    <Card className="cursor-pointer hover:bg-accent/50 transition-colors" onClick={onClick}>
+    <Card
+      className="cursor-pointer hover:bg-accent/50 transition-colors"
+      onClick={onClick}
+    >
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>
         {icon}
@@ -196,9 +227,7 @@ function ActivityItem({ title, description, time, icon, onClick }) {
         <h4 className="font-medium">{title}</h4>
         <p className="text-sm text-muted-foreground">{description}</p>
       </div>
-      <Badge variant="outline">
-        {time}
-      </Badge>
+      <Badge variant="outline">{time}</Badge>
     </div>
   );
 }
@@ -209,7 +238,7 @@ function getTimeAgo(dateString) {
   const date = new Date(dateString);
   const diffInSeconds = Math.floor((date - now) / 1000); // Changed order to get positive difference for future dates
 
-  if (diffInSeconds < 0) return 'Just now';
+  if (diffInSeconds < 0) return "Just now";
 
   let interval = diffInSeconds / 31536000;
   if (interval > 1) return `in ${Math.floor(interval)}y`;
